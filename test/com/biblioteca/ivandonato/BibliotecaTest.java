@@ -22,7 +22,6 @@ public class BibliotecaTest {
 
         assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!",
                 output.toString());
-
     }
 
 }
