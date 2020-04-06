@@ -3,7 +3,7 @@ package com.biblioteca.ivandonato;
 public class Book {
     private String title;
 
-    public void setTitle(String title) {
+    public Book(String title) {
         this.title = title;
     }
 
