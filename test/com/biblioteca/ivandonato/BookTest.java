@@ -14,4 +14,11 @@ public class BookTest {
         assertEquals("The Road", book.getTitle());
     }
 
+    @Test
+    public void getTitle() {
+        Book book = new Book();
+        book.setTitle("Hamlet");
+
+        assertEquals("Hamlet", book.getTitle());
+    }
 }
