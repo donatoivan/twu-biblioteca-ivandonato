@@ -50,4 +50,17 @@ public class BibliotecaTest {
         assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
     }
+
+    @Test
+    public void shouldDisplayMenuOptions() {
+        Biblioteca biblioteca = new Biblioteca();
+
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.displayMenu();
+
+        assertEquals("[Menu Options] (Please type a number)\n[1] List of books", output.toString());
+    }
 }

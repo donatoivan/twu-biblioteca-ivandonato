@@ -1,7 +1,6 @@
 package com.biblioteca.ivandonato;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Biblioteca {
 
@@ -19,6 +18,7 @@ public class Biblioteca {
         biblioteca.welcomeMessage();
         biblioteca.displayBookList(booklist.booklist);
     }
+
     public void welcomeMessage() {
         System.out.print("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n\n");
     }
