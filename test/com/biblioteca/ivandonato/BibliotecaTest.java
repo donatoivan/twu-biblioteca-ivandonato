@@ -93,6 +93,6 @@ public class BibliotecaTest {
 
         biblioteca.menuController("asdfasdfasdf");
 
-        assertEquals("Please select a valid option!", output.toString());
+        assertEquals("Please select a valid option!\n", output.toString());
     }
 }
