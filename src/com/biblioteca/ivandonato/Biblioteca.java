@@ -17,7 +17,9 @@ public class Biblioteca {
         booklist.setBooklist(books);
 
         biblioteca.welcomeMessage();
-        biblioteca.displayBookList(booklist.booklist);
+        biblioteca.displayMenu();
+        String choice = biblioteca.getInputFromUser();
+        biblioteca.menuController(choice, booklist.booklist);
     }
 
     public void welcomeMessage() {
@@ -39,5 +41,11 @@ public class Biblioteca {
     public String getInputFromUser() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+    public void menuController(String choice, ArrayList bookList) {
+        if (choice.equals("1")) {
+            displayBookList(bookList);
+        }
     }
 }
