@@ -1,7 +1,6 @@
 package com.biblioteca.ivandonato;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Biblioteca {
 
@@ -19,6 +18,7 @@ public class Biblioteca {
         biblioteca.welcomeMessage();
         biblioteca.displayBookList(booklist.booklist);
     }
+
     public void welcomeMessage() {
         System.out.print("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n\n");
     }
@@ -28,5 +28,10 @@ public class Biblioteca {
             Book book = (Book) bookList.get(i);
             System.out.println(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear()));
         }
+    }
+
+    public void displayMenu() {
+        System.out.println("[Menu Options] (Please type a number)");
+        System.out.println("[1] List of books");
     }
 }
