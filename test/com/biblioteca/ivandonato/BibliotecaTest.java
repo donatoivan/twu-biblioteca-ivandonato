@@ -63,7 +63,8 @@ public class BibliotecaTest {
 
         biblioteca.displayMenu();
 
-        assertEquals("[Menu Options] (Please type a number)\n[1] List of books\n", output.toString());
+        assertEquals("[Menu Options] (Please type a number)\n[0] Quit Application\n[1] List of books\n",
+                output.toString());
     }
 
     @Test
@@ -107,6 +108,7 @@ public class BibliotecaTest {
         exit.expectSystemExit();
         Biblioteca biblioteca = new Biblioteca(books);
 
-        biblioteca.exitProgram();
+        biblioteca.menuController("0");
+
     }
 }

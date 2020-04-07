@@ -20,9 +20,12 @@ public class Biblioteca {
         Biblioteca biblioteca = new Biblioteca(books);
 
         biblioteca.welcomeMessage();
-        biblioteca.displayMenu();
-        String choice = biblioteca.getInputFromUser();
-        biblioteca.menuController(choice);
+        while (true) {
+            biblioteca.displayMenu();
+            String choice = biblioteca.getInputFromUser();
+            biblioteca.menuController(choice);
+        }
+
     }
 
     public void welcomeMessage() {
@@ -38,6 +41,7 @@ public class Biblioteca {
 
     public void displayMenu() {
         System.out.println("[Menu Options] (Please type a number)");
+        System.out.println("[0] Quit Application");
         System.out.println("[1] List of books");
     }
 
@@ -49,6 +53,8 @@ public class Biblioteca {
     public void menuController(String choice) {
         if (choice.equals("1")) {
             displayBookList(this.booklist);
+        } else if (choice.equals("0")) {
+            System.exit(1);
         } else {
             System.out.println("Please select a valid option!");
         }
