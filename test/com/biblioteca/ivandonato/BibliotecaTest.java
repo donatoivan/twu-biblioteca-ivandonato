@@ -61,6 +61,6 @@ public class BibliotecaTest {
 
         biblioteca.displayMenu();
 
-        assertEquals("[Menu Options] (Please type a number)\n[1] List of books", output.toString());
+        assertEquals("[Menu Options] (Please type a number)\n[1] List of books\n", output.toString());
     }
 }

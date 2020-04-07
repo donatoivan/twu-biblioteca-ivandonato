@@ -29,4 +29,9 @@ public class Biblioteca {
             System.out.println(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear()));
         }
     }
+
+    public void displayMenu() {
+        System.out.println("[Menu Options] (Please type a number)");
+        System.out.println("[1] List of books");
+    }
 }
