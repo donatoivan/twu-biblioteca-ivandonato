@@ -26,7 +26,7 @@ public class Biblioteca {
     public void displayBookList(ArrayList bookList) {
         for (int i = 0; i < bookList.size(); i++) {
             Book book = (Book) bookList.get(i);
-            System.out.println(book.getTitle());
+            System.out.println(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear()));
         }
     }
 }
