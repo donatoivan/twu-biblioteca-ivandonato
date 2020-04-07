@@ -20,7 +20,7 @@ public class Biblioteca {
         biblioteca.displayBookList(booklist.booklist);
     }
     public void welcomeMessage() {
-        System.out.print("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n");
+        System.out.print("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n\n");
     }
 
     public void displayBookList(ArrayList bookList) {

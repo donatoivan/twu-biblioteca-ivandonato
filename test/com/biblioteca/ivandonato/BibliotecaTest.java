@@ -31,7 +31,7 @@ public class BibliotecaTest {
 
         biblioteca.welcomeMessage();
 
-        assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n",
+        assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n\n",
                 output.toString());
     }
 
