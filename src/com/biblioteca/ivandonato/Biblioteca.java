@@ -1,6 +1,7 @@
 package com.biblioteca.ivandonato;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Biblioteca {
 
@@ -33,5 +34,10 @@ public class Biblioteca {
     public void displayMenu() {
         System.out.println("[Menu Options] (Please type a number)");
         System.out.println("[1] List of books");
+    }
+
+    public String getInputFromUser() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
     }
 }
