@@ -3,6 +3,7 @@ package com.biblioteca.ivandonato;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -62,5 +63,17 @@ public class BibliotecaTest {
         biblioteca.displayMenu();
 
         assertEquals("[Menu Options] (Please type a number)\n[1] List of books\n", output.toString());
+    }
+
+    @Test
+    public void shouldGetInputFromUser() {
+        Biblioteca biblioteca = new Biblioteca();
+
+        String data = "1";
+        System.setIn(new ByteArrayInputStream(data.getBytes()));
+
+        String choice = biblioteca.getInputFromUser();
+
+        assertEquals(choice, "1");
     }
 }
