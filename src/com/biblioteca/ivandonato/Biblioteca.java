@@ -49,6 +49,8 @@ public class Biblioteca {
     public void menuController(String choice) {
         if (choice.equals("1")) {
             displayBookList(this.booklist);
+        } else {
+            System.out.println("Please select a valid option!");
         }
     }
 }
