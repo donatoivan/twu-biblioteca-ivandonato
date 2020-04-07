@@ -76,4 +76,23 @@ public class BibliotecaTest {
 
         assertEquals(choice, "1");
     }
+
+    @Test
+    public void shouldDisplayBookListWhenUserInputsOne() {
+        Biblioteca biblioteca = new Biblioteca();
+        BookList booklist = new BookList();
+        booklist.setBooklist(books);
+
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        String userInput = "1";
+        System.setIn(new ByteArrayInputStream(userInput.getBytes()));
+        String choice = biblioteca.getInputFromUser();
+        biblioteca.menuController(choice, booklist.booklist);
+
+        assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
+                "Venice | William Shakespeare | 1600\n", output.toString());
+    }
 }
