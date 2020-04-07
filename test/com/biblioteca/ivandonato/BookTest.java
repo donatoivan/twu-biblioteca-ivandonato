@@ -12,4 +12,11 @@ public class BookTest {
 
         assertEquals("Hamlet", book.getTitle());
     }
+
+    @Test
+    public void getAuthor() {
+        Book book = new Book("Julius Caesar", author: "William Shakespeare", year: "1599");
+
+        assertEquals("William Shakespeare", book.getAuthor());
+    }
 }
