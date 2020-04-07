@@ -1,7 +1,10 @@
 package com.biblioteca.ivandonato;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
+import org.junit.contrib.java.lang.system.SystemOutRule;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,6 +16,9 @@ import static org.junit.Assert.assertEquals;
 
 public class BibliotecaTest {
     public ArrayList<Book> books;
+
+    @Rule
+    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     @Before
     public void initilaiseBooklist() {
@@ -94,5 +100,13 @@ public class BibliotecaTest {
         biblioteca.menuController("asdfasdfasdf");
 
         assertEquals("Please select a valid option!\n", output.toString());
+    }
+
+    @Test
+    public void appShouldExit() {
+        exit.expectSystemExit();
+        Biblioteca biblioteca = new Biblioteca(books);
+
+        biblioteca.exitProgram();
     }
 }
