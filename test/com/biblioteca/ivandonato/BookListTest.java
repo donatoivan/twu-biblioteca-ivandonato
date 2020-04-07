@@ -11,7 +11,7 @@ public class BookListTest {
     public ArrayList<Book> books;
 
     @Before
-    public void init() {
+    public void initilaiseBooklist() {
         books = new ArrayList<>();
         books.add(new Book("hey", "ho", "1"));
         books.add(new Book("gday", "good day", "2"));

@@ -14,7 +14,7 @@ public class BibliotecaTest {
     public ArrayList<Book> books;
 
     @Before
-    public void init() {
+    public void initilaiseBooklist() {
         books = new ArrayList<>();
         books.add(new Book("Hamlet", "William Shakespeare", "1603"));
         books.add(new Book("Romeo & Juliet", "William Shakespeare", "1597"));
@@ -22,7 +22,7 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void welcomeMessageTest() {
+    public void shouldDisplayWelcomeMessageTest() {
         Biblioteca biblioteca = new Biblioteca();
 
         OutputStream output = new ByteArrayOutputStream();
@@ -36,7 +36,7 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void displayBookList() {
+    public void shouldDisplayBookList() {
         Biblioteca biblioteca = new Biblioteca();
         BookList booklist = new BookList();
         booklist.setBooklist(books);
