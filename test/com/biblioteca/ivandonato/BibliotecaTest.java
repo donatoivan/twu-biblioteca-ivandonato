@@ -69,8 +69,8 @@ public class BibliotecaTest {
     public void shouldGetInputFromUser() {
         Biblioteca biblioteca = new Biblioteca();
 
-        String data = "1";
-        System.setIn(new ByteArrayInputStream(data.getBytes()));
+        String userInput = "1";
+        System.setIn(new ByteArrayInputStream(userInput.getBytes()));
 
         String choice = biblioteca.getInputFromUser();
 
