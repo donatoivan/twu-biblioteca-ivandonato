@@ -4,23 +4,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Biblioteca {
+    public ArrayList booklist;
 
+    public Biblioteca(ArrayList bookList) {
+        this.booklist = bookList;
+    }
 
     public static void main(String[] args) {
-        Biblioteca biblioteca = new Biblioteca();
         ArrayList<Book> books = new ArrayList<>();
-        BookList booklist = new BookList();
 
         books.add(new Book("Hamlet", "William Shakespeare", "1603"));
         books.add(new Book("Romeo & Juliet", "William Shakespeare", "1597"));
         books.add(new Book("Merchant of Venice", "William Shakespeare", "1600"));
 
-        booklist.setBooklist(books);
+        Biblioteca biblioteca = new Biblioteca(books);
 
         biblioteca.welcomeMessage();
         biblioteca.displayMenu();
         String choice = biblioteca.getInputFromUser();
-        biblioteca.menuController(choice, booklist.booklist);
+        biblioteca.menuController(choice);
     }
 
     public void welcomeMessage() {
@@ -44,9 +46,9 @@ public class Biblioteca {
         return scanner.nextLine();
     }
 
-    public void menuController(String choice, ArrayList bookList) {
+    public void menuController(String choice) {
         if (choice.equals("1")) {
-            displayBookList(bookList);
+            displayBookList(this.booklist);
         }
     }
 }

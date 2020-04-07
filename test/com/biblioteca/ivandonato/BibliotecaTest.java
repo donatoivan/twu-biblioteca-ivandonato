@@ -24,8 +24,7 @@ public class BibliotecaTest {
 
     @Test
     public void shouldDisplayWelcomeMessageTest() {
-        Biblioteca biblioteca = new Biblioteca();
-
+        Biblioteca biblioteca = new Biblioteca(books);
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
@@ -38,15 +37,12 @@ public class BibliotecaTest {
 
     @Test
     public void shouldDisplayBookList() {
-        Biblioteca biblioteca = new Biblioteca();
-        BookList booklist = new BookList();
-        booklist.setBooklist(books);
-
+        Biblioteca biblioteca = new Biblioteca(books);
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.displayBookList(booklist.booklist);
+        biblioteca.displayBookList(biblioteca.booklist);
 
         assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
@@ -54,8 +50,7 @@ public class BibliotecaTest {
 
     @Test
     public void shouldDisplayMenuOptions() {
-        Biblioteca biblioteca = new Biblioteca();
-
+        Biblioteca biblioteca = new Biblioteca(books);
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
@@ -67,8 +62,7 @@ public class BibliotecaTest {
 
     @Test
     public void shouldGetInputFromUser() {
-        Biblioteca biblioteca = new Biblioteca();
-
+        Biblioteca biblioteca = new Biblioteca(books);
         String userInput = "1";
         System.setIn(new ByteArrayInputStream(userInput.getBytes()));
 
@@ -79,18 +73,12 @@ public class BibliotecaTest {
 
     @Test
     public void shouldDisplayBookListWhenUserInputsOne() {
-        Biblioteca biblioteca = new Biblioteca();
-        BookList booklist = new BookList();
-        booklist.setBooklist(books);
-
+        Biblioteca biblioteca = new Biblioteca(books);
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        String userInput = "1";
-        System.setIn(new ByteArrayInputStream(userInput.getBytes()));
-        String choice = biblioteca.getInputFromUser();
-        biblioteca.menuController(choice, booklist.booklist);
+        biblioteca.menuController("1");
 
         assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
