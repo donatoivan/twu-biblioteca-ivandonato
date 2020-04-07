@@ -83,4 +83,16 @@ public class BibliotecaTest {
         assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
     }
+
+    @Test
+    public void shouldDisplayInvalidOPtionMessage() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.menuController("asdfasdfasdf");
+
+        assertEquals("Please select a valid option!", output.toString());
+    }
 }
