@@ -13,9 +13,9 @@ public class BookListTest {
     @Before
     public void init() {
         books = new ArrayList<>();
-        books.add(new Book("hey"));
-        books.add(new Book("gday"));
-        books.add(new Book("loose"));
+        books.add(new Book("hey", "ho", "1"));
+        books.add(new Book("gday", "good day", "2"));
+        books.add(new Book("loose", "goose", "3"));
     }
 
     @Test

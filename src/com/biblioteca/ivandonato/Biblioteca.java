@@ -10,9 +10,9 @@ public class Biblioteca {
         ArrayList<Book> books = new ArrayList<>();
         BookList booklist = new BookList();
 
-        books.add(new Book("Hamlet"));
-        books.add(new Book("Romeo & Juliet"));
-        books.add(new Book("Merchant of Venice"));
+        books.add(new Book("Hamlet", "William Shakespeare", "1603"));
+        books.add(new Book("Romeo & Juliet", "William Shakespeare", "1597"));
+        books.add(new Book("Merchant of Venice", "William Shakespeare", "1600"));
 
         booklist.setBooklist(books);
 
