@@ -47,9 +47,7 @@ public class BibliotecaTest {
 
         biblioteca.displayBookList(booklist.booklist);
 
-
-        assertEquals("Hamlet\nRomeo & Juliet\nMerchant of Venice\n", output.toString());
-
+        assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
+                "Venice | William Shakespeare | 1600\n", output.toString());
     }
-
 }
