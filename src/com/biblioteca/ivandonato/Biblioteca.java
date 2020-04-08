@@ -46,6 +46,7 @@ public class Biblioteca {
         System.out.println("[0] Quit Application");
         System.out.println("[1] List of books");
         System.out.println("[2] Checkout book");
+        System.out.println("[3] Return book");
     }
 
     public String getInputFromUser() {
@@ -62,6 +63,10 @@ public class Biblioteca {
             System.out.println("Please type the title of the book you wish to checkout: ");
             String title = getInputFromUser();
             findCheckoutBook(title);
+        } else if (choice.equals("3")) {
+            System.out.println("Please type the title of the book you wish to checkout: ");
+            String title = getInputFromUser();
+            findReturnBook(title);
         } else {
             System.out.println("Please select a valid option!");
         }
@@ -77,5 +82,15 @@ public class Biblioteca {
             }
         }
         System.out.println("Sorry, that book is not available");
+    }
+
+    public void findReturnBook(String title) {
+        for (int i = 0; i < this.booklist.size(); i++) {
+            Book book = (Book) booklist.get(i);
+            if (book.getTitle().equals(title)) {
+                book.returnBook();
+                return;
+            }
+        }
     }
 }

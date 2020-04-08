@@ -28,4 +28,10 @@ public class Book {
             this.checkout = true;
         }
     }
+
+    public void returnBook() {
+        if (this.checkout.equals(true)) {
+            this.checkout = false;
+        }
+    }
 }

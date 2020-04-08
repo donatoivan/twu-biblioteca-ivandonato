@@ -64,7 +64,7 @@ public class BibliotecaTest {
         biblioteca.displayMenu();
 
         assertEquals("[Menu Options] (Please type a number)\n[0] Quit Application\n[1] List of books\n[2] Checkout " +
-                        "book\n",
+                        "book\n[3] Return book\n",
                 output.toString());
     }
 
@@ -153,14 +153,15 @@ public class BibliotecaTest {
     @Test
     public void checkReturnOfBook() {
         Biblioteca biblioteca = new Biblioteca(books);
+        biblioteca.findCheckoutBook("Hamlet");
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.findCheckoutBook("Hamlet");
         biblioteca.findReturnBook("Hamlet");
+        biblioteca.displayBookList();
 
-        assertEquals("Thank you! Enjoy the book\nHamlet | William Shakespearea | 1603\nRomeo & Juliet | William " +
+        assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William " +
                 "Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
 
