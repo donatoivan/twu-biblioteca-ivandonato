@@ -47,7 +47,7 @@ public class BibliotecaTest {
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.displayBookList(biblioteca.booklist);
+        biblioteca.displayBookList();
 
         assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
@@ -62,7 +62,8 @@ public class BibliotecaTest {
 
         biblioteca.displayMenu();
 
-        assertEquals("[Menu Options] (Please type a number)\n[0] Quit Application\n[1] List of books\n",
+        assertEquals("[Menu Options] (Please type a number)\n[0] Quit Application\n[1] List of books\n[2] Checkout " +
+                        "book\n",
                 output.toString());
     }
 
@@ -111,13 +112,14 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void shouldCheckOutBook() {
+    public void shouldNotDisplayCheckOutBook() {
         Biblioteca biblioteca = new Biblioteca(books);
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.checkoutBook("Hamlet");
+        biblioteca.findCheckoutBook("Hamlet");
+        biblioteca.displayBookList();
 
         assertEquals("Romeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
