@@ -25,6 +25,7 @@ public class BibliotecaTest {
         books.add(new Book("Hamlet", "William Shakespeare", "1603"));
         books.add(new Book("Romeo & Juliet", "William Shakespeare", "1597"));
         books.add(new Book("Merchant of Venice", "William Shakespeare", "1600"));
+
     }
 
     @Test
@@ -147,5 +148,21 @@ public class BibliotecaTest {
         biblioteca.findCheckoutBook("Haomlet");
 
         assertEquals("Sorry, that book is not available\n", output.toString());
+    }
+
+    @Test
+    public void checkReturnOfBook() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.findCheckoutBook("Hamlet");
+        biblioteca.findReturnBook("Hamlet");
+
+        assertEquals("Thank you! Enjoy the book\nHamlet | William Shakespearea | 1603\nRomeo & Juliet | William " +
+                "Shakespeare | 1597\nMerchant of " +
+                "Venice | William Shakespeare | 1600\n", output.toString());
+
     }
 }
