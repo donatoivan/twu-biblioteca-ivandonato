@@ -151,6 +151,19 @@ public class BibliotecaTest {
     }
 
     @Test
+    public void checkThatACheckedOutBookCannotBeCheckedOutAgain() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        biblioteca.findCheckoutBook("Hamlet");
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.findCheckoutBook("Hamlet");
+
+        assertEquals("Sorry, that book is not available\n", output.toString());
+    }
+
+    @Test
     public void checkReturnOfBook() {
         Biblioteca biblioteca = new Biblioteca(books);
         biblioteca.findCheckoutBook("Hamlet");
@@ -161,9 +174,48 @@ public class BibliotecaTest {
         biblioteca.findReturnBook("Hamlet");
         biblioteca.displayBookList();
 
-        assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William " +
+        assertEquals("Thank you for returning the book\nHamlet | William Shakespeare | 1603\nRomeo & Juliet | William " +
                 "Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
-
     }
+
+    @Test
+    public void checkSuccessfulReturnMessage() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        biblioteca.findCheckoutBook("Hamlet");
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.findReturnBook("Hamlet");
+
+        assertEquals("Thank you for returning the book\n", output.toString());
+    }
+
+    @Test
+    public void checkUnsuccessfulReturnMessage() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.findReturnBook("Merchant of Cyprus");
+
+        assertEquals("That is not a valid book to return.\n", output.toString());
+    }
+
+    @Test
+    public void checkThatAReturnedBookCannotBeReturnedAgain() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        biblioteca.findCheckoutBook("Romeo & Juliet");
+        biblioteca.findReturnBook("Romeo & Juliet");
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.findReturnBook("Romeo & Juliet");
+
+        assertEquals("That is not a valid book to return.\n", output.toString());
+    }
+
 }
