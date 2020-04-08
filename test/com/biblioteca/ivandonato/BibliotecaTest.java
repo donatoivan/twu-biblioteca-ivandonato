@@ -136,4 +136,16 @@ public class BibliotecaTest {
 
         assertEquals("Thank you! Enjoy the book\n", output.toString());
     }
+
+    @Test
+    public void checkUnsuccessfulCheckoutMessage() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.findCheckoutBook("Haomlet");
+
+        assertEquals("Sorry, that book is not available\n", output.toString());
+    }
 }
