@@ -161,7 +161,7 @@ public class BibliotecaTest {
         biblioteca.findReturnBook("Hamlet");
         biblioteca.displayBookList();
 
-        assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William " +
+        assertEquals("Thank you for returning the book\nHamlet | William Shakespeare | 1603\nRomeo & Juliet | William " +
                 "Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
     }
