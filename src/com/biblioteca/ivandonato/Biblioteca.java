@@ -32,10 +32,12 @@ public class Biblioteca {
         System.out.print("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n\n");
     }
 
-    public void displayBookList(ArrayList bookList) {
-        for (int i = 0; i < bookList.size(); i++) {
-            Book book = (Book) bookList.get(i);
-            System.out.println(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear()));
+    public void displayBookList() {
+        for (int i = 0; i < this.booklist.size(); i++) {
+            Book book = (Book) booklist.get(i);
+            if (book.getCheckout().equals(false)) {
+                System.out.println(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear()));
+            }
         }
     }
 
@@ -43,6 +45,7 @@ public class Biblioteca {
         System.out.println("[Menu Options] (Please type a number)");
         System.out.println("[0] Quit Application");
         System.out.println("[1] List of books");
+        System.out.println("[2] Checkout book");
     }
 
     public String getInputFromUser() {
@@ -52,11 +55,25 @@ public class Biblioteca {
 
     public void menuController(String choice) {
         if (choice.equals("1")) {
-            displayBookList(this.booklist);
+            displayBookList();
         } else if (choice.equals("0")) {
             System.exit(1);
+        } else if (choice.equals("2")){
+            System.out.println("Please type the title of the book you wish to checkout: ");
+            String title = getInputFromUser();
+            findCheckoutBook(title);
         } else {
             System.out.println("Please select a valid option!");
+        }
+    }
+
+    public void findCheckoutBook(String title) {
+        for (int i = 0; i < this.booklist.size(); i++) {
+            Book book = (Book) booklist.get(i);
+            if (book.getTitle().equals(title)) {
+                book.checkoutBook();
+                return;
+            }
         }
     }
 }

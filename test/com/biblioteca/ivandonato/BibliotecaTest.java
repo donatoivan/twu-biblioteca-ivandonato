@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
-import org.junit.contrib.java.lang.system.SystemOutRule;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -48,7 +47,7 @@ public class BibliotecaTest {
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.displayBookList(biblioteca.booklist);
+        biblioteca.displayBookList();
 
         assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
@@ -63,7 +62,8 @@ public class BibliotecaTest {
 
         biblioteca.displayMenu();
 
-        assertEquals("[Menu Options] (Please type a number)\n[0] Quit Application\n[1] List of books\n",
+        assertEquals("[Menu Options] (Please type a number)\n[0] Quit Application\n[1] List of books\n[2] Checkout " +
+                        "book\n",
                 output.toString());
     }
 
@@ -92,7 +92,7 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void shouldDisplayInvalidOPtionMessage() {
+    public void shouldDisplayInvalidOptionMessage() {
         Biblioteca biblioteca = new Biblioteca(books);
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
@@ -109,6 +109,19 @@ public class BibliotecaTest {
         Biblioteca biblioteca = new Biblioteca(books);
 
         biblioteca.menuController("0");
+    }
 
+    @Test
+    public void shouldNotDisplayCheckOutBook() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.findCheckoutBook("Hamlet");
+        biblioteca.displayBookList();
+
+        assertEquals("Romeo & Juliet | William Shakespeare | 1597\nMerchant of " +
+                "Venice | William Shakespeare | 1600\n", output.toString());
     }
 }
