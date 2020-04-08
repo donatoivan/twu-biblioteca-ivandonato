@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
-import org.junit.contrib.java.lang.system.SystemOutRule;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -92,7 +91,7 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void shouldDisplayInvalidOPtionMessage() {
+    public void shouldDisplayInvalidOptionMessage() {
         Biblioteca biblioteca = new Biblioteca(books);
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
@@ -109,6 +108,18 @@ public class BibliotecaTest {
         Biblioteca biblioteca = new Biblioteca(books);
 
         biblioteca.menuController("0");
+    }
 
+    @Test
+    public void shouldCheckOutBook() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.checkoutBook("Hamlet");
+
+        assertEquals("Romeo & Juliet | William Shakespeare | 1597\nMerchant of " +
+                "Venice | William Shakespeare | 1600\n", output.toString());
     }
 }
