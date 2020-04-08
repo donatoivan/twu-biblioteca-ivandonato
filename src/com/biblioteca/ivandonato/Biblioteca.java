@@ -72,6 +72,7 @@ public class Biblioteca {
             Book book = (Book) booklist.get(i);
             if (book.getTitle().equals(title)) {
                 book.checkoutBook();
+                System.out.println("Thank you! Enjoy the book");
                 return;
             }
         }
