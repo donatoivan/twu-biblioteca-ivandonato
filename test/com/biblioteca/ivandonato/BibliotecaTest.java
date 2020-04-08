@@ -124,4 +124,16 @@ public class BibliotecaTest {
         assertEquals("Romeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
     }
+
+    @Test
+    public void checkSuccessfulCheckoutMessage() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.findCheckoutBook("Hamlet");
+
+        assertEquals("Thank you! Enjoy the book”", output.toString());
+    }
 }
