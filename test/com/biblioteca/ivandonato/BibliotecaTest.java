@@ -178,4 +178,16 @@ public class BibliotecaTest {
 
         assertEquals("Thank you for returning the book\n", output.toString());
     }
+
+    @Test
+    public void checkUnsuccessfulReturnMessage() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.findReturnBook("Merchant of Cyprus");
+
+        assertEquals("That is not a valid book to return.\n", output.toString());
+    }
 }
