@@ -151,6 +151,19 @@ public class BibliotecaTest {
     }
 
     @Test
+    public void checkThatACheckedOutBookCannotBeCheckedOutAgain() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        biblioteca.findCheckoutBook("Hamlet");
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.findCheckoutBook("Hamlet");
+
+        assertEquals("Sorry, that book is not available\n", output.toString());
+    }
+
+    @Test
     public void checkReturnOfBook() {
         Biblioteca biblioteca = new Biblioteca(books);
         biblioteca.findCheckoutBook("Hamlet");
@@ -190,4 +203,19 @@ public class BibliotecaTest {
 
         assertEquals("That is not a valid book to return.\n", output.toString());
     }
+
+    @Test
+    public void checkThatAReturnedBookCannotBeReturnedAgain() {
+        Biblioteca biblioteca = new Biblioteca(books);
+        biblioteca.findCheckoutBook("Romeo & Juliet");
+        biblioteca.findReturnBook("Romeo & Juliet");
+        OutputStream output = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(output);
+        System.setOut(printStream);
+
+        biblioteca.findReturnBook("Romeo & Juliet");
+
+        assertEquals("That is not a valid book to return.\n", output.toString());
+    }
+
 }

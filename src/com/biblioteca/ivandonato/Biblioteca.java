@@ -75,7 +75,7 @@ public class Biblioteca {
     public void findCheckoutBook(String title) {
         for (int i = 0; i < this.booklist.size(); i++) {
             Book book = (Book) booklist.get(i);
-            if (book.getTitle().equals(title)) {
+            if (book.getTitle().equals(title) && book.getCheckout().equals(false)) {
                 book.checkoutBook();
                 System.out.println("Thank you! Enjoy the book");
                 return;
@@ -87,11 +87,12 @@ public class Biblioteca {
     public void findReturnBook(String title) {
         for (int i = 0; i < this.booklist.size(); i++) {
             Book book = (Book) booklist.get(i);
-            if (book.getTitle().equals(title)) {
+            if (book.getTitle().equals(title) && book.getCheckout().equals(true)) {
                 book.returnBook();
                 System.out.println("Thank you for returning the book");
                 return;
             }
         }
+        System.out.println("That is not a valid book to return.");
     }
 }
