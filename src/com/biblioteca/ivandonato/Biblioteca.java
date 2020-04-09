@@ -1,7 +1,6 @@
 package com.biblioteca.ivandonato;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Biblioteca {
     public ArrayList booklist;
@@ -18,81 +17,16 @@ public class Biblioteca {
         books.add(new Book("Merchant of Venice", "William Shakespeare", "1600"));
 
         Biblioteca biblioteca = new Biblioteca(books);
+        InputOutput inputOutput = new InputOutput();
+        Librarian librarian = new Librarian();
 
-        biblioteca.welcomeMessage();
+        inputOutput.welcomeMessage();
+
         while (true) {
-            biblioteca.displayMenu();
-            String choice = biblioteca.getInputFromUser();
-            biblioteca.menuController(choice);
+            inputOutput.displayMenu();
+            String choice = inputOutput.getInputFromUser();
+            librarian.menuController(choice, biblioteca.booklist);
         }
 
-    }
-
-    public void welcomeMessage() {
-        System.out.print("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n\n");
-    }
-
-    public void displayBookList() {
-        for (int i = 0; i < this.booklist.size(); i++) {
-            Book book = (Book) booklist.get(i);
-            if (book.getCheckout().equals(false)) {
-                System.out.println(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear()));
-            }
-        }
-    }
-
-    public void displayMenu() {
-        System.out.println("[Menu Options] (Please type a number)");
-        System.out.println("[0] Quit Application");
-        System.out.println("[1] List of books");
-        System.out.println("[2] Checkout book");
-        System.out.println("[3] Return book");
-    }
-
-    public String getInputFromUser() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
-    public void menuController(String choice) {
-        if (choice.equals("1")) {
-            displayBookList();
-        } else if (choice.equals("0")) {
-            System.exit(1);
-        } else if (choice.equals("2")){
-            System.out.println("Please type the title of the book you wish to checkout: ");
-            String title = getInputFromUser();
-            findCheckoutBook(title);
-        } else if (choice.equals("3")) {
-            System.out.println("Please type the title of the book you wish to checkout: ");
-            String title = getInputFromUser();
-            findReturnBook(title);
-        } else {
-            System.out.println("Please select a valid option!");
-        }
-    }
-
-    public void findCheckoutBook(String title) {
-        for (int i = 0; i < this.booklist.size(); i++) {
-            Book book = (Book) booklist.get(i);
-            if (book.getTitle().equals(title) && book.getCheckout().equals(false)) {
-                book.checkoutBook();
-                System.out.println("Thank you! Enjoy the book");
-                return;
-            }
-        }
-        System.out.println("Sorry, that book is not available");
-    }
-
-    public void findReturnBook(String title) {
-        for (int i = 0; i < this.booklist.size(); i++) {
-            Book book = (Book) booklist.get(i);
-            if (book.getTitle().equals(title) && book.getCheckout().equals(true)) {
-                book.returnBook();
-                System.out.println("Thank you for returning the book");
-                return;
-            }
-        }
-        System.out.println("That is not a valid book to return.");
     }
 }
