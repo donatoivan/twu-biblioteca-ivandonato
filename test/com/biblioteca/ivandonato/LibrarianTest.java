@@ -5,7 +5,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class BibliotecaTest {
+public class LibrarianTest {
     public ArrayList<Book> books;
 
     @Rule
@@ -29,64 +28,14 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void shouldDisplayWelcomeMessageTest() {
-        Biblioteca biblioteca = new Biblioteca(books);
-        OutputStream output = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(output);
-        System.setOut(printStream);
-
-        biblioteca.welcomeMessage();
-
-        assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n\n",
-                output.toString());
-    }
-
-    @Test
-    public void shouldDisplayBookList() {
-        Biblioteca biblioteca = new Biblioteca(books);
-        OutputStream output = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(output);
-        System.setOut(printStream);
-
-        biblioteca.displayBookList();
-
-        assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
-                "Venice | William Shakespeare | 1600\n", output.toString());
-    }
-
-    @Test
-    public void shouldDisplayMenuOptions() {
-        Biblioteca biblioteca = new Biblioteca(books);
-        OutputStream output = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(output);
-        System.setOut(printStream);
-
-        biblioteca.displayMenu();
-
-        assertEquals("[Menu Options] (Please type a number)\n[0] Quit Application\n[1] List of books\n[2] Checkout " +
-                        "book\n[3] Return book\n",
-                output.toString());
-    }
-
-    @Test
-    public void shouldGetInputFromUser() {
-        Biblioteca biblioteca = new Biblioteca(books);
-        String userInput = "1";
-        System.setIn(new ByteArrayInputStream(userInput.getBytes()));
-
-        String choice = biblioteca.getInputFromUser();
-
-        assertEquals(choice, "1");
-    }
-
-    @Test
     public void shouldDisplayBookListWhenUserInputsOne() {
-        Biblioteca biblioteca = new Biblioteca(books);
+        Librarian librarian = new Librarian();
+
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.menuController("1");
+        librarian.menuController("1", books);
 
         assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
@@ -94,12 +43,12 @@ public class BibliotecaTest {
 
     @Test
     public void shouldDisplayInvalidOptionMessage() {
-        Biblioteca biblioteca = new Biblioteca(books);
+        Librarian librarian = new Librarian();
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.menuController("asdfasdfasdf");
+        librarian.menuController("asdfasdfasdf", books);
 
         assertEquals("Please select a valid option!\n", output.toString());
     }
@@ -107,20 +56,21 @@ public class BibliotecaTest {
     @Test
     public void appShouldExit() {
         exit.expectSystemExit();
-        Biblioteca biblioteca = new Biblioteca(books);
+        Librarian librarian = new Librarian();
 
-        biblioteca.menuController("0");
+        librarian.menuController("0", books);
     }
 
     @Test
     public void shouldNotDisplayCheckOutBook() {
-        Biblioteca biblioteca = new Biblioteca(books);
+        Librarian librarian = new Librarian();
+        InputOutput inputOutput = new InputOutput();
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.findCheckoutBook("Hamlet");
-        biblioteca.displayBookList();
+        librarian.findCheckoutBook("Hamlet", books);
+        inputOutput.displayBookList(books);
 
         assertEquals("Thank you! Enjoy the book\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", output.toString());
@@ -128,51 +78,52 @@ public class BibliotecaTest {
 
     @Test
     public void checkSuccessfulCheckoutMessage() {
-        Biblioteca biblioteca = new Biblioteca(books);
+        Librarian librarian = new Librarian();
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.findCheckoutBook("Hamlet");
+        librarian.findCheckoutBook("Hamlet", books);
 
         assertEquals("Thank you! Enjoy the book\n", output.toString());
     }
 
     @Test
     public void checkUnsuccessfulCheckoutMessage() {
-        Biblioteca biblioteca = new Biblioteca(books);
+        Librarian librarian = new Librarian();
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.findCheckoutBook("Haomlet");
+        librarian.findCheckoutBook("Haomlet", books);
 
         assertEquals("Sorry, that book is not available\n", output.toString());
     }
 
     @Test
     public void checkThatACheckedOutBookCannotBeCheckedOutAgain() {
-        Biblioteca biblioteca = new Biblioteca(books);
-        biblioteca.findCheckoutBook("Hamlet");
+        Librarian librarian = new Librarian();
+        librarian.findCheckoutBook("Hamlet", books);
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.findCheckoutBook("Hamlet");
+        librarian.findCheckoutBook("Hamlet", books);
 
         assertEquals("Sorry, that book is not available\n", output.toString());
     }
 
     @Test
     public void checkReturnOfBook() {
-        Biblioteca biblioteca = new Biblioteca(books);
-        biblioteca.findCheckoutBook("Hamlet");
+        Librarian librarian = new Librarian();
+        InputOutput inputOutput = new InputOutput();
+        librarian.findCheckoutBook("Hamlet", books);
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.findReturnBook("Hamlet");
-        biblioteca.displayBookList();
+        librarian.findReturnBook("Hamlet", books);
+        inputOutput.displayBookList(books);
 
         assertEquals("Thank you for returning the book\nHamlet | William Shakespeare | 1603\nRomeo & Juliet | William " +
                 "Shakespeare | 1597\nMerchant of " +
@@ -181,41 +132,40 @@ public class BibliotecaTest {
 
     @Test
     public void checkSuccessfulReturnMessage() {
-        Biblioteca biblioteca = new Biblioteca(books);
-        biblioteca.findCheckoutBook("Hamlet");
+        Librarian librarian = new Librarian();
+        librarian.findCheckoutBook("Hamlet", books);
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.findReturnBook("Hamlet");
+        librarian.findReturnBook("Hamlet", books);
 
         assertEquals("Thank you for returning the book\n", output.toString());
     }
 
     @Test
     public void checkUnsuccessfulReturnMessage() {
-        Biblioteca biblioteca = new Biblioteca(books);
+        Librarian librarian = new Librarian();
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.findReturnBook("Merchant of Cyprus");
+        librarian.findReturnBook("Merchant of Cyprus", books);
 
         assertEquals("That is not a valid book to return.\n", output.toString());
     }
 
     @Test
     public void checkThatAReturnedBookCannotBeReturnedAgain() {
-        Biblioteca biblioteca = new Biblioteca(books);
-        biblioteca.findCheckoutBook("Romeo & Juliet");
-        biblioteca.findReturnBook("Romeo & Juliet");
+        Librarian librarian = new Librarian();
+        librarian.findCheckoutBook("Romeo & Juliet", books);
+        librarian.findReturnBook("Romeo & Juliet", books);
         OutputStream output = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(output);
         System.setOut(printStream);
 
-        biblioteca.findReturnBook("Romeo & Juliet");
+        librarian.findReturnBook("Romeo & Juliet", books);
 
         assertEquals("That is not a valid book to return.\n", output.toString());
     }
-
 }
