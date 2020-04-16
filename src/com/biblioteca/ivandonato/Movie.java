@@ -4,11 +4,13 @@ public class Movie {
     private String title;
     private String year;
     private String director;
+    private String rating;
 
-    public Movie(String title, String year, String director) {
+    public Movie(String title, String year, String director, String rating) {
         this.title = title;
         this.year = year;
         this.director = director;
+        this.rating = rating;
     }
 
     public String getTitle() {
@@ -21,5 +23,9 @@ public class Movie {
 
     public String getDirector() {
         return director;
+    }
+
+    public String getRating() {
+        return rating;
     }
 }
