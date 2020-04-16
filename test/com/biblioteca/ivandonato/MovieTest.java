@@ -8,7 +8,7 @@ public class MovieTest {
 
     @Test
     public void shouldGetMovieTitle() {
-        Movie movie = new Movie("Mad Max");
+        Movie movie = new Movie("Mad Max", "1985");
         assertEquals("Mad Max", movie.getTitle());
     }
 
