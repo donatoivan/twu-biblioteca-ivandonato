@@ -22,6 +22,7 @@ public class InputOutput {
         stream.println("[2] Checkout book");
         stream.println("[3] Return book");
         stream.println("[4] List of movies");
+        stream.println("[5] Checkout movie");
     }
 
     public String getInputFromUser() {
@@ -31,6 +32,10 @@ public class InputOutput {
 
     public void askForCheckoutTitle() {
         stream.println("Please type the title of the book you wish to checkout: ");
+    }
+
+    public void askForCheckoutTitleMovie() {
+        stream.println("Please type the title of the movie you wish to checkout: ");
     }
 
     public void askForReturnTitle() {
@@ -53,8 +58,10 @@ public class InputOutput {
     public void displayMovieList(ArrayList movielist) {
         for (int i = 0; i < movielist.size(); i++) {
             Movie movie = (Movie) movielist.get(i);
-            stream.println(String.format("%s | %s | %s | %s", movie.getTitle(), movie.getYear(), movie.getDirector(),
-             movie.getRating()));
+            if (movie.getCheckoutMovie().equals(false)) {
+                stream.println(String.format("%s | %s | %s | %s", movie.getTitle(), movie.getYear(), movie.getDirector(),
+                        movie.getRating()));
+            }
         }
     }
 
@@ -62,8 +69,16 @@ public class InputOutput {
         stream.println("Thank you! Enjoy the book");
     }
 
+    public void successfulCheckoutMessageMovie() {
+        stream.println("Thank you! Enjoy the movie");
+    }
+
     public void unsuccessfulCheckoutMessage() {
         stream.println("Sorry, that book is not available");
+    }
+
+    public void unsuccessfulCheckoutMessageMovie() {
+        stream.println("Sorry, that movie is not available");
     }
 
     public void successfulReturnMessage() {

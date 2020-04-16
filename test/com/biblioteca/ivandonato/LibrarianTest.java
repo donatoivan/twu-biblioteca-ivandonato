@@ -74,13 +74,35 @@ public class LibrarianTest {
     }
 
     @Test
-    public void checkSuccessfulCheckoutMessage() {
+    public void shouldNotDisplayCheckOutMovie() {
+        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
+        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
+
+        librarian.findCheckoutMovie("Mad Max", movies);
+        librarian.inputOutput.displayMovieList(movies);
+
+        assertEquals("Thank you! Enjoy the movie\nJumanji | 1995 | Joe Johnston | 8\nMortal Kombat | 1999 | Paul " +
+                "Anderson | Unrated\n", mockOutput.toString());
+    }
+
+    @Test
+    public void checkSuccessfulCheckoutMessageBook() {
         ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
         Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
 
         librarian.findCheckoutBook("Hamlet", books);
 
         assertEquals("Thank you! Enjoy the book\n", mockOutput.toString());
+    }
+
+    @Test
+    public void checkSuccessfulCheckoutMessageMovie() {
+        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
+        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
+
+        librarian.findCheckoutMovie("Mad Max", movies);
+
+        assertEquals("Thank you! Enjoy the movie\n", mockOutput.toString());
     }
 
     @Test
@@ -91,6 +113,16 @@ public class LibrarianTest {
         librarian.findCheckoutBook("Haomlet", books);
 
         assertEquals("Sorry, that book is not available\n", mockOutput.toString());
+    }
+
+    @Test
+    public void checkUnsuccessfulCheckoutMessageMovie() {
+        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
+        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
+
+        librarian.findCheckoutMovie("Mad Martin", movies);
+
+        assertEquals("Sorry, that movie is not available\n", mockOutput.toString());
     }
 
     @Test
