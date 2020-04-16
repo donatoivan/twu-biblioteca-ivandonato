@@ -12,4 +12,10 @@ public class MovieTest {
         assertEquals("Mad Max", movie.getTitle());
     }
 
+    @Test
+    public void shouldGetMovieYear() {
+        Movie movie = new Movie("Mad Max", "1985");
+        assertEquals("1985", movie.getYear());
+    }
+
 }
