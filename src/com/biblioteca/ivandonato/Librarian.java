@@ -41,9 +41,9 @@ public class Librarian {
         inputOutput.unsuccessfulCheckoutMessage();
     }
 
-    public void findReturnBook(String title, ArrayList bookList) {
+    public void findReturnBook(String title, ArrayList<Book> bookList) {
         for (int i = 0; i < bookList.size(); i++) {
-            Book book = (Book) bookList.get(i);
+            Book book = bookList.get(i);
             if (book.getTitle().equals(title) && book.getCheckout().equals(true)) {
                 book.returnBook();
                 inputOutput.successfulReturnMessage();
@@ -52,4 +52,17 @@ public class Librarian {
         }
         inputOutput.unsuccessfulReturnMessage();
     }
+
+    public void findCheckoutMovie(String title, ArrayList<Movie> movieList) {
+        for (int i = 0; i < movieList.size(); i++) {
+            Movie movie = movieList.get(i);
+            if (movie.getTitle().equals(title) && movie.getCheckoutMovie().equals(false)) {
+                movie.checkoutMovie();
+                inputOutput.successfulCheckoutMessageMovie();
+                return;
+            }
+        }
+        inputOutput.unsuccessfulCheckoutMessageMovie();
+    }
+
 }
