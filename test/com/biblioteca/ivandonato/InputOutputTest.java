@@ -45,7 +45,7 @@ public class InputOutputTest {
         inputOutput.displayMenu();
 
         assertEquals("[Menu Options] (Please type a number)\n[0] Quit Application\n[1] List of books\n[2] Checkout " +
-                        "book\n[3] Return book\n[4] List of movies\n",
+                        "book\n[3] Return book\n[4] List of movies\n[5] Checkout movie\n",
                 mockOutput.toString());
     }
 

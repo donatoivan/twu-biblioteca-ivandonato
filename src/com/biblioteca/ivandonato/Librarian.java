@@ -24,6 +24,10 @@ public class Librarian {
             findReturnBook(title, bookList);
         } else if (choice.equals("4")) {
             inputOutput.displayMovieList(movieList);
+        } else if (choice.equals("5")) {
+            inputOutput.askForCheckoutTitleMovie();
+            String title = inputOutput.getInputFromUser();
+            findCheckoutMovie(title, movieList);
         } else {
             inputOutput.inValidOption();
         }

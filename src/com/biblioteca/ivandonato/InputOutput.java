@@ -22,6 +22,7 @@ public class InputOutput {
         stream.println("[2] Checkout book");
         stream.println("[3] Return book");
         stream.println("[4] List of movies");
+        stream.println("[5] Checkout movie");
     }
 
     public String getInputFromUser() {
@@ -31,6 +32,10 @@ public class InputOutput {
 
     public void askForCheckoutTitle() {
         stream.println("Please type the title of the book you wish to checkout: ");
+    }
+
+    public void askForCheckoutTitleMovie() {
+        stream.println("Please type the title of the movie you wish to checkout: ");
     }
 
     public void askForReturnTitle() {
