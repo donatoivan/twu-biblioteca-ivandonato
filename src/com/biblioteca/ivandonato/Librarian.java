@@ -9,7 +9,7 @@ public class Librarian {
         this.inputOutput = inputOutput;
     }
 
-    public void menuController(String choice, ArrayList bookList) {
+    public void menuController(String choice, ArrayList bookList, ArrayList movieList) {
         if (choice.equals("1")) {
             inputOutput.displayBookList(bookList);
         } else if (choice.equals("0")) {
@@ -22,6 +22,8 @@ public class Librarian {
             inputOutput.askForReturnTitle();
             String title = inputOutput.getInputFromUser();
             findReturnBook(title, bookList);
+        } else if (choice.equals("4")) {
+            inputOutput.displayMovieList(movieList);
         } else {
             inputOutput.inValidOption();
         }

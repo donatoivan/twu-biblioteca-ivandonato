@@ -13,16 +13,22 @@ import static org.junit.Assert.assertEquals;
 
 public class LibrarianTest {
     public ArrayList<Book> books;
+    public ArrayList<Movie> movies;
 
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     @Before
-    public void initilaiseBooklist() {
+    public void initialiseLibrary() {
         books = new ArrayList<>();
         books.add(new Book("Hamlet", "William Shakespeare", "1603"));
         books.add(new Book("Romeo & Juliet", "William Shakespeare", "1597"));
         books.add(new Book("Merchant of Venice", "William Shakespeare", "1600"));
+
+        movies = new ArrayList<>();
+        movies.add(new Movie("Mad Max", "1985", "George Miller", "10"));
+        movies.add(new Movie("Jumanji", "1995", "Joe Johnston", "8"));
+        movies.add(new Movie("Mortal Kombat", "1999", "Paul Anderson", "Unrated"));
     }
 
     @Test
@@ -30,7 +36,7 @@ public class LibrarianTest {
         ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
         Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
 
-        librarian.menuController("1", books);
+        librarian.menuController("1", books, movies);
 
         assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", mockOutput.toString());
@@ -41,7 +47,7 @@ public class LibrarianTest {
         ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
         Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
 
-        librarian.menuController("asdfasdfasdf", books);
+        librarian.menuController("asdfasdfasdf", books, movies);
 
         assertEquals("Please select a valid option!\n", mockOutput.toString());
     }
@@ -52,7 +58,7 @@ public class LibrarianTest {
         Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
         exit.expectSystemExit();
 
-        librarian.menuController("0", books);
+        librarian.menuController("0", books, movies);
     }
 
     @Test

@@ -21,6 +21,7 @@ public class InputOutput {
         stream.println("[1] List of books");
         stream.println("[2] Checkout book");
         stream.println("[3] Return book");
+        stream.println("[4] List of movies");
     }
 
     public String getInputFromUser() {
@@ -46,6 +47,14 @@ public class InputOutput {
             if (book.getCheckout().equals(false)) {
                 stream.println(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear()));
             }
+        }
+    }
+
+    public void displayMovieList(ArrayList movielist) {
+        for (int i = 0; i < movielist.size(); i++) {
+            Movie movie = (Movie) movielist.get(i);
+            stream.println(String.format("%s | %s | %s | %s", movie.getTitle(), movie.getYear(), movie.getDirector(),
+             movie.getRating()));
         }
     }
 
