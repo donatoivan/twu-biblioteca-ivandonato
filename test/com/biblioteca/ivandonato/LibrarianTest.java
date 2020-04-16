@@ -74,11 +74,21 @@ public class LibrarianTest {
     }
 
     @Test
-    public void checkSuccessfulCheckoutMessage() {
+    public void checkSuccessfulCheckoutMessageBook() {
         ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
         Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
 
         librarian.findCheckoutBook("Hamlet", books);
+
+        assertEquals("Thank you! Enjoy the book\n", mockOutput.toString());
+    }
+
+    @Test
+    public void checkSuccessfulCheckoutMessageMovie() {
+        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
+        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
+
+        librarian.findCheckoutMovie("Mad Max", movies);
 
         assertEquals("Thank you! Enjoy the book\n", mockOutput.toString());
     }
