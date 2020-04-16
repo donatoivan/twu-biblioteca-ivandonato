@@ -24,4 +24,10 @@ public class MovieTest {
         assertEquals("George Miller", movie.getDirector());
     }
 
+    @Test
+    public void shouldGetMovieRating() {
+        Movie movie = new Movie("Mad Max", "1985", "George Miller");
+        assertEquals("10", movie.getRating());
+    }
+
 }
