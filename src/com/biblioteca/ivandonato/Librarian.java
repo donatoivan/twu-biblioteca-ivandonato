@@ -9,24 +9,6 @@ public class Librarian {
         this.inputOutput = inputOutput;
     }
 
-    public void menuController(String choice, ArrayList bookList) {
-        if (choice.equals("1")) {
-            inputOutput.displayBookList(bookList);
-        } else if (choice.equals("0")) {
-            System.exit(1);
-        } else if (choice.equals("2")){
-            inputOutput.askForCheckoutTitle();
-            String title = inputOutput.getInputFromUser();
-            findCheckoutBook(title, bookList);
-        } else if (choice.equals("3")) {
-            inputOutput.askForReturnTitle();
-            String title = inputOutput.getInputFromUser();
-            findReturnBook(title, bookList);
-        } else {
-            inputOutput.inValidOption();
-        }
-    }
-
     public void findCheckoutBook(String title, ArrayList bookList) {
         for (int i = 0; i < bookList.size(); i++) {
             Book book = (Book) bookList.get(i);

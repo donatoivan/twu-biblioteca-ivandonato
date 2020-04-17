@@ -14,8 +14,6 @@ import static org.junit.Assert.assertEquals;
 public class LibrarianTest {
     public ArrayList<Book> books;
 
-    @Rule
-    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     @Before
     public void initilaiseBooklist() {
@@ -23,48 +21,6 @@ public class LibrarianTest {
         books.add(new Book("Hamlet", "William Shakespeare", "1603"));
         books.add(new Book("Romeo & Juliet", "William Shakespeare", "1597"));
         books.add(new Book("Merchant of Venice", "William Shakespeare", "1600"));
-    }
-
-    @Test
-    public void shouldDisplayBookListWhenUserInputsOne() {
-        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
-
-        librarian.menuController("1", books);
-
-        assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
-                "Venice | William Shakespeare | 1600\n", mockOutput.toString());
-    }
-
-    @Test
-    public void shouldDisplayInvalidOptionMessage() {
-        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
-
-        librarian.menuController("asdfasdfasdf", books);
-
-        assertEquals("Please select a valid option!\n", mockOutput.toString());
-    }
-
-    @Test
-    public void appShouldExit() {
-        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
-        exit.expectSystemExit();
-
-        librarian.menuController("0", books);
-    }
-
-    @Test
-    public void shouldNotDisplayCheckOutBook() {
-        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
-
-        librarian.findCheckoutBook("Hamlet", books);
-        librarian.inputOutput.displayBookList(books);
-
-        assertEquals("Thank you! Enjoy the book\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
-                "Venice | William Shakespeare | 1600\n", mockOutput.toString());
     }
 
     @Test

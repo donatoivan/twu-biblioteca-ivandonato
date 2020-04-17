@@ -23,8 +23,22 @@ public class Biblioteca {
         }
     }
 
-    private void actionOn(String choice) {
-        librarian.menuController(choice, bookList);
+    void actionOn(String choice) {
+        if (choice.equals("1")) {
+            librarian.inputOutput.displayBookList(bookList);
+        } else if (choice.equals("0")) {
+            System.exit(1);
+        } else if (choice.equals("2")){
+            librarian.inputOutput.askForCheckoutTitle();
+            String title = librarian.inputOutput.getInputFromUser();
+            librarian.findCheckoutBook(title, bookList);
+        } else if (choice.equals("3")) {
+            librarian.inputOutput.askForReturnTitle();
+            String title = librarian.inputOutput.getInputFromUser();
+            librarian.findReturnBook(title, bookList);
+        } else {
+            librarian.inputOutput.inValidOption();
+        }
     }
 
     private String readChoice() {

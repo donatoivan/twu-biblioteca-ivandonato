@@ -53,4 +53,18 @@ public class InputOutputTest {
         assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
                 "Venice | William Shakespeare | 1600\n", mockOutput.toString());
     }
+
+    @Test
+    public void shouldNotDisplayCheckOutBook() {
+        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
+        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput));
+        books.stream()
+                .filter(b -> b.getTitle().contains("Hamlet"))
+                .forEach(Book::checkoutBook);
+
+        inputOutput.displayBookList(books);
+
+        assertEquals("Romeo & Juliet | William Shakespeare | 1597\nMerchant of " +
+                "Venice | William Shakespeare | 1600\n", mockOutput.toString());
+    }
 }
