@@ -3,54 +3,64 @@ package com.biblioteca.ivandonato;
 import java.util.ArrayList;
 
 public class Biblioteca {
-    public ArrayList bookList;
+    private ArrayList bookList;
     private final Librarian librarian;
+    private InputOutput inputOutput;
 
-    public Biblioteca(ArrayList bookList, Librarian librarian) {
+    public Biblioteca(ArrayList bookList, Librarian librarian, InputOutput inputOutput) {
         this.bookList = bookList;
         this.librarian = librarian;
+        this.inputOutput = inputOutput;
     }
 
     public static void main(String[] args) {
         ArrayList books = Biblioteca.buildLibrary();
         Biblioteca biblioteca = new ApplicationBuilder().build(books);
 
-        biblioteca.welcome();
+        biblioteca.run();
+    }
+
+    private void run() {
+        welcome();
         while (true) {
-            biblioteca.showMenu();
-            String choice = biblioteca.readChoice();
-            biblioteca.actionOn(choice);
+            step();
         }
+    }
+
+    void step() {
+        showMenu();
+        String choice = readChoice();
+        actionOn(choice);
     }
 
     void actionOn(String choice) {
         if (choice.equals("1")) {
-            librarian.inputOutput.displayBookList(bookList);
+            inputOutput.displayBookList(bookList);
         } else if (choice.equals("0")) {
             System.exit(1);
-        } else if (choice.equals("2")){
-            librarian.inputOutput.askForCheckoutTitle();
-            String title = librarian.inputOutput.getInputFromUser();
+        } else if (choice.equals("2")) {
+            inputOutput.askForCheckoutTitle();
+            String title = inputOutput.getInputFromUser();
             librarian.findCheckoutBook(title, bookList);
         } else if (choice.equals("3")) {
-            librarian.inputOutput.askForReturnTitle();
-            String title = librarian.inputOutput.getInputFromUser();
+            inputOutput.askForReturnTitle();
+            String title = inputOutput.getInputFromUser();
             librarian.findReturnBook(title, bookList);
         } else {
-            librarian.inputOutput.inValidOption();
+            inputOutput.inValidOption();
         }
     }
 
     private String readChoice() {
-        return librarian.inputOutput.getInputFromUser();
+        return inputOutput.getInputFromUser();
     }
 
     private void showMenu() {
-        librarian.inputOutput.displayMenu();
+        inputOutput.displayMenu();
     }
 
     private void welcome() {
-        librarian.inputOutput.welcomeMessage();
+        inputOutput.welcomeMessage();
     }
 
     public static ArrayList<Book> buildLibrary() {
