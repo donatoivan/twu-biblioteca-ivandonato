@@ -13,19 +13,30 @@ public class Biblioteca {
 
     public static void main(String[] args) {
         ArrayList books = Biblioteca.buildLibrary();
-        Biblioteca.run(books);
-    }
-
-    public static void run(ArrayList books) {
         Biblioteca biblioteca = new ApplicationBuilder().build(books);
 
-        biblioteca.librarian.inputOutput.welcomeMessage();
-
+        biblioteca.welcome();
         while (true) {
-            biblioteca.librarian.inputOutput.displayMenu();
-            String choice = biblioteca.librarian.inputOutput.getInputFromUser();
-            biblioteca.librarian.menuController(choice, biblioteca.bookList);
+            biblioteca.showMenu();
+            String choice = biblioteca.readChoice();
+            biblioteca.actionOn(choice);
         }
+    }
+
+    private void actionOn(String choice) {
+        librarian.menuController(choice, bookList);
+    }
+
+    private String readChoice() {
+        return librarian.inputOutput.getInputFromUser();
+    }
+
+    private void showMenu() {
+        librarian.inputOutput.displayMenu();
+    }
+
+    private void welcome() {
+        librarian.inputOutput.welcomeMessage();
     }
 
     public static ArrayList<Book> buildLibrary() {
