@@ -3,35 +3,79 @@ package com.biblioteca.ivandonato;
 import java.util.ArrayList;
 
 public class Biblioteca {
-    public ArrayList bookList;
-    public ArrayList movielist;
+    private ArrayList bookList;
     private final Librarian librarian;
+    private InputOutput inputOutput;
 
-    public Biblioteca(ArrayList bookList, ArrayList movielist, Librarian librarian) {
+    public Biblioteca(ArrayList bookList, Librarian librarian, InputOutput inputOutput) {
         this.bookList = bookList;
         this.librarian = librarian;
-        this.movielist = movielist;
+        this.inputOutput = inputOutput;
     }
 
     public static void main(String[] args) {
-        ArrayList books = Biblioteca.buildBooksLibrary();
-        ArrayList movies = Biblioteca.buildMoviesLibrary();
-        Biblioteca.run(books, movies);
+        ArrayList books = Biblioteca.buildLibrary();
+        Biblioteca biblioteca = new ApplicationBuilder().build(books);
+
+        biblioteca.run();
     }
 
-    public static void run(ArrayList books, ArrayList movies) {
-        Biblioteca biblioteca = new ApplicationBuilder().build(books, movies);
-
-        biblioteca.librarian.inputOutput.welcomeMessage();
-
+    private void run() {
+        welcome();
         while (true) {
-            biblioteca.librarian.inputOutput.displayMenu();
-            String choice = biblioteca.librarian.inputOutput.getInputFromUser();
-            biblioteca.librarian.menuController(choice, biblioteca.bookList, biblioteca.movielist);
+            step();
         }
     }
 
-    public static ArrayList<Book> buildBooksLibrary() {
+    void step() {
+        showMenu();
+        String choice = readChoice();
+        actionOn(choice);
+    }
+
+    void actionOn(String choice) {
+        if (choice.equals("1")) {
+            inputOutput.displayBookList(bookList);
+        } else if (choice.equals("0")) {
+            System.exit(1);
+        } else if (choice.equals("2")) {
+            checkoutBook();
+        } else if (choice.equals("3")) {
+            returnBook();
+        } else {
+            inputOutput.inValidOption();
+        }
+    }
+
+    private void returnBook() {
+        inputOutput.askForReturnTitle();
+        String title = inputOutput.getInputFromUser();
+        librarian.findReturnBook(title, bookList);
+    }
+
+    private void checkoutBook() {
+        inputOutput.askForCheckoutTitle();
+        String title = inputOutput.getInputFromUser();
+        if(librarian.findCheckoutBook(title, bookList)){
+            inputOutput.successfulCheckoutMessage();
+        }else {
+            inputOutput.unsuccessfulCheckoutMessage();
+        }
+    }
+
+    private String readChoice() {
+        return inputOutput.getInputFromUser();
+    }
+
+    private void showMenu() {
+        inputOutput.displayMenu();
+    }
+
+    private void welcome() {
+        inputOutput.welcomeMessage();
+    }
+
+    private static ArrayList<Book> buildLibrary() {
         ArrayList<Book> books = new ArrayList<>();
         books.add(new Book("Hamlet", "William Shakespeare", "1603"));
         books.add(new Book("Romeo & Juliet", "William Shakespeare", "1597"));
