@@ -5,12 +5,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class BibliotecaTest {
     private ArrayList<Book> books;
@@ -29,27 +30,30 @@ public class BibliotecaTest {
 
         mockOutput = new ByteArrayOutputStream();
         Librarian librarian = new Librarian();
-        io = new InputOutput(new PrintStream(mockOutput));
+        io = new InputOutput(new PrintStream(mockOutput), Collections.emptyIterator());
         biblioteca = new Biblioteca(books, librarian, io);
     }
 
 
     @Test
     public void shouldDisplayBookListWhenUserInputsOne() {
-        biblioteca.actionOn("1");
+        input(io, "1");
 
-        assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
-                "Venice | William Shakespeare | 1600\n", mockOutput.toString());
+        biblioteca.step();
+
+        assertTrue(mockOutput.toString().contains("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of Venice | William Shakespeare | 1600"));
     }
 
     @Test
     public void shouldDisplayInvalidOptionMessage() {
-        biblioteca.actionOn("cdfda");
+        input(io, "invalid option");
 
-        assertEquals("Please select a valid option!\n", mockOutput.toString());
+        biblioteca.step();
+
+        assertTrue(mockOutput.toString().contains("Please select a valid option!"));
     }
 
-//    @Test
+    //    @Test
 //    public void checkReturnOfBook() {
 //        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
 //        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
@@ -66,19 +70,26 @@ public class BibliotecaTest {
 //                "Venice | William Shakespeare | 1600\n", mockOutput.toString());
 //    }
 //@Test
-        @Test
-        public void checkSuccessfulReturnMessage() {
+    @Test
+    public void checkSuccessfulCheckoutMessage() {
+        input(io, "2", "Hamlet");
 
-            input(io, "1");
-            biblioteca.step();
+        biblioteca.step();
 
-            assertEquals("Thank you! Enjoy the book\nThank you for returning the book\n",
-                    mockOutput.toString());
-        }
+        assertTrue(mockOutput.toString().contains("Thank you! Enjoy the book"));
+    }
+
+    @Test
+    public void checkUnSuccessfulCheckoutMessageWhenBookNotExists() {
+        input(io, "2", "not exists");
+
+        biblioteca.step();
+
+        assertTrue(mockOutput.toString().contains("Sorry, that book is not available"));
+    }
 
     private void input(InputOutput io, String... strs) {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(strs[0].getBytes());
-        io.setIn(inputStream);
+        io.setIn(List.of(strs).iterator());
     }
 //    @Test
 //    public void checkUnsuccessfulReturnMessage() {

@@ -1,19 +1,16 @@
 package com.biblioteca.ivandonato;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Iterator;
 
 public class InputOutput {
     PrintStream stream;
-    private Scanner scanner;
-    private InputStream in;
+    private Iterator<String> in;
 
-    public InputOutput(PrintStream stream) {
+    public InputOutput(PrintStream stream, Iterator<String> in) {
         this.stream = stream;
-        in = System.in;
+        this.in = in;
     }
 
     public void welcomeMessage() {
@@ -29,8 +26,7 @@ public class InputOutput {
     }
 
     public String getInputFromUser() {
-        scanner = new Scanner(in);
-        return scanner.nextLine();
+        return in.next();
     }
 
     public void askForCheckoutTitle() {
@@ -70,11 +66,7 @@ public class InputOutput {
         stream.println("That is not a valid book to return.");
     }
 
-    public void setIn() {
-
-    }
-
-    void setIn(InputStream inputStream) {
-        this.in = inputStream;
+    void setIn(Iterator<String> in) {
+        this.in = in;
     }
 }

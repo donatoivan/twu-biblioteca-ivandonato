@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,7 +24,7 @@ public class InputOutputTest {
     @Test
     public void shouldDisplayWelcomeMessageTest() {
         ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput));
+        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), Collections.emptyIterator());
 
         inputOutput.welcomeMessage();
 
@@ -34,7 +35,7 @@ public class InputOutputTest {
     @Test
     public void shouldDisplayMenuOptions() {
         ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput));
+        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), Collections.emptyIterator());
 
         inputOutput.displayMenu();
 
@@ -46,18 +47,19 @@ public class InputOutputTest {
     @Test
     public void shouldDisplayBookList() {
         ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput));
+        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), Collections.emptyIterator());
 
         inputOutput.displayBookList(books);
 
         assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\nMerchant of " +
-                "Venice | William Shakespeare | 1600\n", mockOutput.toString());
+                "Venice | William Shakespeare | 1600\n",
+                mockOutput.toString());
     }
 
     @Test
     public void shouldNotDisplayCheckOutBook() {
         ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput));
+        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), Collections.emptyIterator());
         books.stream()
                 .filter(b -> b.getTitle().contains("Hamlet"))
                 .forEach(Book::checkoutBook);

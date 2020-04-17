@@ -39,15 +39,27 @@ public class Biblioteca {
         } else if (choice.equals("0")) {
             System.exit(1);
         } else if (choice.equals("2")) {
-            inputOutput.askForCheckoutTitle();
-            String title = inputOutput.getInputFromUser();
-            librarian.findCheckoutBook(title, bookList);
+            checkoutBook();
         } else if (choice.equals("3")) {
-            inputOutput.askForReturnTitle();
-            String title = inputOutput.getInputFromUser();
-            librarian.findReturnBook(title, bookList);
+            returnBook();
         } else {
             inputOutput.inValidOption();
+        }
+    }
+
+    private void returnBook() {
+        inputOutput.askForReturnTitle();
+        String title = inputOutput.getInputFromUser();
+        librarian.findReturnBook(title, bookList);
+    }
+
+    private void checkoutBook() {
+        inputOutput.askForCheckoutTitle();
+        String title = inputOutput.getInputFromUser();
+        if(librarian.findCheckoutBook(title, bookList)){
+            inputOutput.successfulCheckoutMessage();
+        }else {
+            inputOutput.unsuccessfulCheckoutMessage();
         }
     }
 
@@ -63,7 +75,7 @@ public class Biblioteca {
         inputOutput.welcomeMessage();
     }
 
-    public static ArrayList<Book> buildLibrary() {
+    private static ArrayList<Book> buildLibrary() {
         ArrayList<Book> books = new ArrayList<>();
         books.add(new Book("Hamlet", "William Shakespeare", "1603"));
         books.add(new Book("Romeo & Juliet", "William Shakespeare", "1597"));
