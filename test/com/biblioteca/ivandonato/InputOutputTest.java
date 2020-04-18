@@ -5,13 +5,14 @@ import org.junit.Test;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
 
 public class InputOutputTest {
     public ArrayList<Book> books;
     public ArrayList<Movie> movies;
+    private ByteArrayOutputStream mockOutput;
 
     @Before
     public void initialiseLibrary() {
@@ -25,12 +26,14 @@ public class InputOutputTest {
         movies.add(new Movie("Jumanji", "1995", "Joe Johnston", "8"));
         movies.add(new Movie("Mortal Kombat", "1999", "Paul Anderson", "Unrated"));
 
+        mockOutput = new ByteArrayOutputStream();
+
     }
 
     @Test
     public void shouldDisplayWelcomeMessageTest() {
-        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), Collections.emptyIterator());
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("".getBytes());
+        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), new Scanner(mockInput));
 
         inputOutput.welcomeMessage();
 
@@ -40,8 +43,8 @@ public class InputOutputTest {
 
     @Test
     public void shouldDisplayMenuOptions() {
-        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), Collections.emptyIterator());
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("".getBytes());
+        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), new Scanner(mockInput));
 
         inputOutput.displayMenu();
 
@@ -52,8 +55,8 @@ public class InputOutputTest {
 
     @Test
     public void shouldDisplayBookList() {
-        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), Collections.emptyIterator());
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("1".getBytes());
+        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), new Scanner(mockInput));
 
         inputOutput.displayBookList(books);
 
@@ -64,8 +67,8 @@ public class InputOutputTest {
 
     @Test
     public void shouldNotDisplayCheckOutBook() {
-        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), Collections.emptyIterator());
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("1".getBytes());
+        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), new Scanner(mockInput));
         books.stream()
                 .filter(b -> b.getTitle().contains("Hamlet"))
                 .forEach(Book::checkoutBook);
@@ -78,8 +81,8 @@ public class InputOutputTest {
 
     @Test
     public void shouldDisplayMovieList() {
-        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput));
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("1".getBytes());
+        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), new Scanner(mockInput));
 
         inputOutput.displayMovieList(movies);
 

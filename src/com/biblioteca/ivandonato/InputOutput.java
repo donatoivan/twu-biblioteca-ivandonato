@@ -2,15 +2,15 @@ package com.biblioteca.ivandonato;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Scanner;
 
 public class InputOutput {
     PrintStream stream;
-    private Iterator<String> in;
+    Scanner scanner;
 
-    public InputOutput(PrintStream stream, Iterator<String> in) {
+    public InputOutput(PrintStream stream, Scanner scanner) {
         this.stream = stream;
-        this.in = in;
+        this.scanner = scanner;
     }
 
     public void welcomeMessage() {
@@ -28,7 +28,7 @@ public class InputOutput {
     }
 
     public String getInputFromUser() {
-        return in.next();
+        return scanner.nextLine();
     }
 
     public void askForCheckoutTitle() {
@@ -90,7 +90,4 @@ public class InputOutput {
         stream.println("That is not a valid book to return.");
     }
 
-    void setIn(Iterator<String> in) {
-        this.in = in;
-    }
 }

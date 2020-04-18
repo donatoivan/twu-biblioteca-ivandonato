@@ -5,16 +5,17 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Scanner;
 
 import static org.junit.Assert.assertTrue;
 
 public class BibliotecaTest {
     private ArrayList<Book> books;
+    private ArrayList<Movie> movies;
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
     private Biblioteca biblioteca;
@@ -22,22 +23,26 @@ public class BibliotecaTest {
     private InputOutput io;
 
     @Before
-    public void initilaiseBooklist() {
+    public void initialiseBookList() {
         books = new ArrayList<>();
         books.add(new Book("Hamlet", "William Shakespeare", "1603"));
         books.add(new Book("Romeo & Juliet", "William Shakespeare", "1597"));
         books.add(new Book("Merchant of Venice", "William Shakespeare", "1600"));
 
+        movies = new ArrayList<>();
+        movies.add(new Movie("Mad Max", "1985", "George Miller", "10"));
+        movies.add(new Movie("Jumanji", "1995", "Joe Johnston", "8"));
+        movies.add(new Movie("Mortal Kombat", "1999", "Paul Anderson", "Unrated"));
+
         mockOutput = new ByteArrayOutputStream();
-        Librarian librarian = new Librarian();
-        io = new InputOutput(new PrintStream(mockOutput), Collections.emptyIterator());
-        biblioteca = new Biblioteca(books, librarian, io);
     }
 
 
     @Test
     public void shouldDisplayBookListWhenUserInputsOne() {
-        input(io, "1");
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("1".getBytes());
+        biblioteca = new Biblioteca(books, new Librarian(), new InputOutput(new PrintStream(mockOutput),
+                new Scanner(mockInput)), movies);
 
         biblioteca.step();
 
@@ -46,33 +51,20 @@ public class BibliotecaTest {
 
     @Test
     public void shouldDisplayInvalidOptionMessage() {
-        input(io, "invalid option");
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("invalid option".getBytes());
+        biblioteca = new Biblioteca(books, new Librarian(), new InputOutput(new PrintStream(mockOutput),
+                new Scanner(mockInput)), movies);
 
         biblioteca.step();
 
         assertTrue(mockOutput.toString().contains("Please select a valid option!"));
     }
 
-    //    @Test
-//    public void checkReturnOfBook() {
-//        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-//        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
-//        checkout(this.books, "Hamlet");
-//
-//        boolean returnResult = librarian.findReturnBook("Hamlet", this.books);
-//
-//        assertTrue(returnResult);
-//
-//        librarian.inputOutput.displayBookList(this.books);
-//        assertEquals("Thank you! Enjoy the book\nThank you for returning the book\nHamlet | William Shakespeare | " +
-//                "1603\nRomeo & Juliet | William " +
-//                "Shakespeare | 1597\nMerchant of " +
-//                "Venice | William Shakespeare | 1600\n", mockOutput.toString());
-//    }
-//@Test
     @Test
     public void checkSuccessfulCheckoutMessage() {
-        input(io, "2", "Hamlet");
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("2\nHamlet".getBytes());
+        biblioteca = new Biblioteca(books, new Librarian(), new InputOutput(new PrintStream(mockOutput),
+                new Scanner(mockInput)), movies);
 
         biblioteca.step();
 
@@ -81,50 +73,53 @@ public class BibliotecaTest {
 
     @Test
     public void checkUnSuccessfulCheckoutMessageWhenBookNotExists() {
-        input(io, "2", "not exists");
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("2\nnot exists".getBytes());
+        biblioteca = new Biblioteca(books, new Librarian(), new InputOutput(new PrintStream(mockOutput),
+                new Scanner(mockInput)), movies);
 
         biblioteca.step();
 
         assertTrue(mockOutput.toString().contains("Sorry, that book is not available"));
     }
 
-    private void input(InputOutput io, String... strs) {
-        io.setIn(List.of(strs).iterator());
+    @Test
+    public void checkUnsuccessfulReturnMessage() {
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("3\nHamlet".getBytes());
+        biblioteca = new Biblioteca(books, new Librarian(), new InputOutput(new PrintStream(mockOutput),
+                new Scanner(mockInput)), movies);
+
+        biblioteca.step();
+
+        assertTrue(mockOutput.toString().contains("That is not a valid book to return."));
     }
-//    @Test
-//    public void checkUnsuccessfulReturnMessage() {
-//        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-//        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
-//
-//        librarian.findReturnBook("Merchant of Cyprus", books);
-//
-//        assertEquals("That is not a valid book to return.\n", mockOutput.toString());
-//    }
-//
-//    @Test
-//    public void checkThatAReturnedBookCannotBeReturnedAgain() {
-//        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-//        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
-//
-//        librarian.findCheckoutBook("Romeo & Juliet", books);
-//        librarian.findReturnBook("Romeo & Juliet", books);
-//        librarian.findReturnBook("Romeo & Juliet", books);
-//
-//        assertEquals("Thank you! Enjoy the book\nThank you for returning the book\nThat is not a valid book to return" +
-//                ".\n", mockOutput.toString());
-//    }
-//
-//    private void checkout(ArrayList<Book> books, String title) {
-//        books.stream()
-//                .filter(b -> b.getTitle().contains(title))
-//                .forEach(Book::checkoutBook);
-//    }
+
+    @Test
+    public void checkThatAReturnedBookCannotBeReturnedAgain() {
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("3\nRomeo & Juliet\n3\nRomeo & Juliet".getBytes());
+        biblioteca = new Biblioteca(books, new Librarian(), new InputOutput(new PrintStream(mockOutput),
+                new Scanner(mockInput)), movies);
+        checkout(books, "Romeo & Juliet");
+
+        biblioteca.step();
+        biblioteca.step();
+
+        assertTrue(mockOutput.toString().contains("That is not a valid book to return."));
+    }
+
+    private void checkout(ArrayList<Book> books, String title) {
+        books.stream()
+                .filter(b -> b.getTitle().contains(title))
+                .forEach(Book::checkoutBook);
+    }
 
     @Test
     public void appShouldExit() {
         exit.expectSystemExit();
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("0".getBytes());
+        biblioteca = new Biblioteca(books, new Librarian(), new InputOutput(new PrintStream(mockOutput),
+                new Scanner(mockInput)), movies);
 
-        biblioteca.actionOn("0");
+        biblioteca.step();
     }
 
 }

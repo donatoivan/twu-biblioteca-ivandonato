@@ -4,18 +4,21 @@ import java.util.ArrayList;
 
 public class Biblioteca {
     private ArrayList bookList;
+    private ArrayList movieList;
     private final Librarian librarian;
     private InputOutput inputOutput;
 
-    public Biblioteca(ArrayList bookList, Librarian librarian, InputOutput inputOutput) {
+    public Biblioteca(ArrayList bookList, Librarian librarian, InputOutput inputOutput, ArrayList movieList) {
         this.bookList = bookList;
         this.librarian = librarian;
         this.inputOutput = inputOutput;
+        this.movieList = movieList;
     }
 
     public static void main(String[] args) {
         ArrayList books = Biblioteca.buildLibrary();
-        Biblioteca biblioteca = new ApplicationBuilder().build(books);
+        ArrayList movies = Biblioteca.buildMoviesLibrary();
+        Biblioteca biblioteca = new ApplicationBuilder().build(books, movies);
 
         biblioteca.run();
     }
@@ -42,6 +45,8 @@ public class Biblioteca {
             checkoutBook();
         } else if (choice.equals("3")) {
             returnBook();
+        } else if (choice.equals("4")) {
+            inputOutput.displayMovieList(movieList);
         } else {
             inputOutput.inValidOption();
         }
@@ -50,7 +55,11 @@ public class Biblioteca {
     private void returnBook() {
         inputOutput.askForReturnTitle();
         String title = inputOutput.getInputFromUser();
-        librarian.findReturnBook(title, bookList);
+        if (librarian.findReturnBook(title, bookList)) {
+            inputOutput.successfulReturnMessage();
+        } else {
+            inputOutput.unsuccessfulReturnMessage();
+        }
     }
 
     private void checkoutBook() {
@@ -58,7 +67,7 @@ public class Biblioteca {
         String title = inputOutput.getInputFromUser();
         if(librarian.findCheckoutBook(title, bookList)){
             inputOutput.successfulCheckoutMessage();
-        }else {
+        } else {
             inputOutput.unsuccessfulCheckoutMessage();
         }
     }
