@@ -7,11 +7,12 @@ public class Librarian {
     public Librarian() {
     }
 
-    public boolean findCheckoutBook(String title, ArrayList bookList) {
+    public boolean findCheckoutBook(String title, ArrayList bookList, User user) {
         for (int i = 0; i < bookList.size(); i++) {
             Book book = (Book) bookList.get(i);
             if (book.getTitle().equals(title) && book.getCheckout().equals(false)) {
                 book.checkoutBook();
+                user.addBookToUser(book);
                 return true;
             }
         }

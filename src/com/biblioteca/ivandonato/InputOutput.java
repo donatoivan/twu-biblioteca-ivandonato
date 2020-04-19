@@ -49,7 +49,7 @@ public class InputOutput {
     }
 
     public void askForReturnTitle() {
-        stream.println("Please type the title of the book you wish to checkout: ");
+        stream.println("Please type the title of the book you wish to return: ");
     }
 
     public void inValidOption() {

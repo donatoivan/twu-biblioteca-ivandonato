@@ -21,6 +21,8 @@ public class User {
         return password;
     }
 
+    public ArrayList getMyBooks() { return myBooks; }
+
     public void addBookToUser(Book book) {
         myBooks.add(book);
     }

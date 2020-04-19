@@ -97,7 +97,7 @@ public class Biblioteca {
     private void checkoutBook() {
         inputOutput.askForCheckoutTitleBook();
         String title = inputOutput.getInputFromUser();
-        if(librarian.findCheckoutBook(title, bookList)){
+        if(librarian.findCheckoutBook(title, bookList, loggedInUser)){
             inputOutput.successfulCheckoutMessageBook();
         } else {
             inputOutput.unsuccessfulCheckoutMessageBook();
