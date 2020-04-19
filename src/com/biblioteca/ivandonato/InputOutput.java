@@ -17,7 +17,7 @@ public class InputOutput {
         stream.print("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n\n");
     }
 
-    public void displayMenu() {
+    public void displayMenuLoggedIn() {
         stream.println("[Menu Options] (Please type a number)");
         stream.println("[0] Quit Application");
         stream.println("[1] List of books");
@@ -25,6 +25,15 @@ public class InputOutput {
         stream.println("[3] Return book");
         stream.println("[4] List of movies");
         stream.println("[5] Checkout movie");
+        stream.println("[6] Logout");
+    }
+
+    public void displayMenuLoggedOut() {
+        stream.println("[Menu Options] (Please type a number)");
+        stream.println("[0] Quit Application");
+        stream.println("[1] List of books");
+        stream.println("[2] List of movies");
+        stream.println("[3] Login");
     }
 
     public String getInputFromUser() {
@@ -88,6 +97,26 @@ public class InputOutput {
 
     public void unsuccessfulReturnMessage() {
         stream.println("That is not a valid book to return.");
+    }
+
+    public void loginMessage() {
+        stream.println("Please enter your user login:");
+    }
+
+    public void passwordMessage() {
+        stream.println("Please enter your password:");
+    }
+
+    public void successfulLoginMessage() {
+        stream.println("Login successful!");
+    }
+
+    public void unsuccessfulLoginMessage() {
+        stream.println("Incorrect user id or password!");
+    }
+
+    public void logoutMessage() {
+        stream.println("Successfully logged out!");
     }
 
 }

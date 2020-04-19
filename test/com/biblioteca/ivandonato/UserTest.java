@@ -1,10 +1,17 @@
 //package com.biblioteca.ivandonato;
 //
+//import org.junit.Before;
 //import org.junit.Test;
 //
 //import static org.junit.Assert.assertEquals;
 //
 //public class UserTest {
+//    public Book book;
+//
+//    @Before
+//    public void initilaise() {
+//        book = new Book("Waiting for Godot", "Samuel Beckett", "1963");
+//    }
 //
 //    @Test
 //    public void shouldGetUserId() {
@@ -28,7 +35,7 @@
 //    public void shouldAddBookToUser() {
 //        User user = new User("1234567", "password123");
 //
-//        user.addBooktoUser(book);
+//        user.addBookToUser(book);
 //
 //        assertEquals(1, user.myBooks.size());
 //    }
