@@ -29,16 +29,15 @@ public class Librarian {
         return false;
     }
 
-//    public void findCheckoutMovie(String title, ArrayList<Movie> movieList) {
-//        for (int i = 0; i < movieList.size(); i++) {
-//            Movie movie = movieList.get(i);
-//            if (movie.getTitle().equals(title) && movie.getCheckoutMovie().equals(false)) {
-//                movie.checkoutMovie();
-//                inputOutput.successfulCheckoutMessageMovie();
-//                return;
-//            }
-//        }
-//        inputOutput.unsuccessfulCheckoutMessageMovie();
-//    }
+    public boolean findCheckoutMovie(String title, ArrayList<Movie> movieList) {
+        for (int i = 0; i < movieList.size(); i++) {
+            Movie movie = movieList.get(i);
+            if (movie.getTitle().equals(title) && movie.getCheckoutMovie().equals(false)) {
+                movie.checkoutMovie();
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

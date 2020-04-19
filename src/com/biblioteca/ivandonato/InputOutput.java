@@ -31,7 +31,7 @@ public class InputOutput {
         return scanner.nextLine();
     }
 
-    public void askForCheckoutTitle() {
+    public void askForCheckoutTitleBook() {
         stream.println("Please type the title of the book you wish to checkout: ");
     }
 
@@ -66,7 +66,7 @@ public class InputOutput {
         }
     }
 
-    public void successfulCheckoutMessage() {
+    public void successfulCheckoutMessageBook() {
         stream.println("Thank you! Enjoy the book");
     }
 
@@ -74,7 +74,7 @@ public class InputOutput {
         stream.println("Thank you! Enjoy the movie");
     }
 
-    public void unsuccessfulCheckoutMessage() {
+    public void unsuccessfulCheckoutMessageBook() {
         stream.println("Sorry, that book is not available");
     }
 

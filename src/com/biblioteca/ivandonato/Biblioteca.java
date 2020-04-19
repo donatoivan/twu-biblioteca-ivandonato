@@ -47,6 +47,8 @@ public class Biblioteca {
             returnBook();
         } else if (choice.equals("4")) {
             inputOutput.displayMovieList(movieList);
+        } else if (choice.equals("5")) {
+            checkoutMovie();
         } else {
             inputOutput.inValidOption();
         }
@@ -63,12 +65,22 @@ public class Biblioteca {
     }
 
     private void checkoutBook() {
-        inputOutput.askForCheckoutTitle();
+        inputOutput.askForCheckoutTitleBook();
         String title = inputOutput.getInputFromUser();
         if(librarian.findCheckoutBook(title, bookList)){
-            inputOutput.successfulCheckoutMessage();
+            inputOutput.successfulCheckoutMessageBook();
         } else {
-            inputOutput.unsuccessfulCheckoutMessage();
+            inputOutput.unsuccessfulCheckoutMessageBook();
+        }
+    }
+
+    private void checkoutMovie() {
+        inputOutput.askForCheckoutTitleMovie();
+        String title = inputOutput.getInputFromUser();
+        if (librarian.findCheckoutMovie(title, movieList)) {
+            inputOutput.successfulCheckoutMessageMovie();
+        } else {
+            inputOutput.unsuccessfulCheckoutMessageMovie();
         }
     }
 
