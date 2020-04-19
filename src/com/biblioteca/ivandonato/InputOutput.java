@@ -26,6 +26,7 @@ public class InputOutput {
         stream.println("[4] List of movies");
         stream.println("[5] Checkout movie");
         stream.println("[6] Logout");
+        stream.println("[7] View My Books");
     }
 
     public void displayMenuLoggedOut() {
@@ -77,6 +78,7 @@ public class InputOutput {
 
     public void viewUserBooks(User user) {
         ArrayList<Book> books = user.getMyBooks();
+        stream.println("My Books:");
         books.stream().forEach(book -> stream.println(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear())));
     }
 

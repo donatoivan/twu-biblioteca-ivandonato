@@ -64,7 +64,9 @@ public class Biblioteca {
             checkoutMovie();
         } else if (choice.equals("6")) {
             logoutUser();
-        }else {
+        } else if (choice.equals("7")) {
+            inputOutput.viewUserBooks(loggedInUser);
+        } else {
             inputOutput.inValidOption();
         }
     }

@@ -64,7 +64,8 @@ public class InputOutputTest {
         inputOutput.displayMenuLoggedIn();
 
         assertEquals("[Menu Options] (Please type a number)\n[0] Quit Application\n[1] List of books\n[2] Checkout " +
-                        "book\n[3] Return book\n[4] List of movies\n[5] Checkout movie\n[6] Logout\n",
+                        "book\n[3] Return book\n[4] List of movies\n[5] Checkout movie\n[6] Logout\n[7] View My " +
+                        "Books\n",
                 mockOutput.toString());
     }
 
@@ -128,7 +129,7 @@ public class InputOutputTest {
 
         inputOutput.viewUserBooks(user);
 
-        assertEquals("Hamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\n",
+        assertEquals("My Books:\nHamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\n",
                 mockOutput.toString());
     }
 }
