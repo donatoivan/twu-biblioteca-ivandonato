@@ -43,7 +43,6 @@ public class Biblioteca {
             String choice = readChoice();
             actionOnLoggedOut(choice);
         } else {
-            System.out.println(loggedInUser.getUserId());
             showMenuLoggedIn();
             String choice = readChoice();
             actionOnLoggedIn(choice);
@@ -127,7 +126,7 @@ public class Biblioteca {
         }
     }
 
-    private Boolean validateUser(String userId, String password) {
+    public Boolean validateUser(String userId, String password) {
         for (int i = 0; i < users.size(); i++) {
             User user = (User) users.get(i);
             if (user.getUserId().equals(userId) && user.getPassword().equals(password)) {
@@ -161,6 +160,7 @@ public class Biblioteca {
     private void welcome() {
         inputOutput.welcomeMessage();
     }
+
 
     private static ArrayList<Book> buildLibrary() {
         ArrayList<Book> books = new ArrayList<>();

@@ -75,6 +75,11 @@ public class InputOutput {
         }
     }
 
+    public void viewUserBooks(User user) {
+        ArrayList<Book> books = user.getMyBooks();
+        books.stream().forEach(book -> stream.println(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear())));
+    }
+
     public void successfulCheckoutMessageBook() {
         stream.println("Thank you! Enjoy the book");
     }
