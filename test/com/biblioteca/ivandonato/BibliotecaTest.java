@@ -36,9 +36,9 @@ public class BibliotecaTest {
         movies.add(new Movie("Mortal Kombat", "1999", "Paul Anderson", "Unrated"));
 
         users = new ArrayList<>();
-        users.add(new User("123-4567", "password123"));
-        users.add(new User("987-6543", "whoami"));
-        users.add(new User("246-8101", "drowssap"));
+        users.add(new User("123-4567", "password123", "a", "b", "c"));
+        users.add(new User("987-6543", "whoami", "a", "b", "c"));
+        users.add(new User("246-8101", "drowssap", "a", "b", "c"));
 
         mockOutput = new ByteArrayOutputStream();
     }

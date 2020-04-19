@@ -66,6 +66,8 @@ public class Biblioteca {
             logoutUser();
         } else if (choice.equals("7")) {
             inputOutput.viewUserBooks(loggedInUser);
+        } else if (choice.equals("8")) {
+            inputOutput.viewUserDetails(loggedInUser);
         } else {
             inputOutput.inValidOption();
         }
@@ -184,9 +186,9 @@ public class Biblioteca {
 
     public static ArrayList<User> buildUsers() {
         ArrayList<User> users = new ArrayList<>();
-        users.add(new User("123-4567", "password123"));
-        users.add(new User("987-6543", "helloworld"));
-        users.add(new User("111-1111", "whoami"));
+        users.add(new User("123-4567", "password123", "Adam", "t@t.com", "123456"));
+        users.add(new User("987-6543", "helloworld","Steve", "a@a.com", "11111156"));
+        users.add(new User("111-1111", "whoami","Stacey", "s@s.com", "99999999"));
 
         return users;
     }

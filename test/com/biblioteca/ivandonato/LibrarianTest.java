@@ -18,7 +18,7 @@ public class LibrarianTest {
     @Before
     public void initialiseBooklist() {
         librarian = new Librarian();
-        user = new User("123-4567", "password");
+        user = new User("123-4567", "password", "a", "b", "c");
 
         books = new ArrayList<>();
         books.add(new Book("Hamlet", "William Shakespeare", "1603"));

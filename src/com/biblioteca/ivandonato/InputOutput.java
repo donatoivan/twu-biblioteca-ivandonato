@@ -27,6 +27,7 @@ public class InputOutput {
         stream.println("[5] Checkout movie");
         stream.println("[6] Logout");
         stream.println("[7] View My Books");
+        stream.println("[8] View My Details");
     }
 
     public void displayMenuLoggedOut() {
@@ -82,6 +83,14 @@ public class InputOutput {
         books.stream().forEach(book -> stream.println(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear())));
     }
 
+    public void viewUserDetails(User user) {
+        stream.println("My Details:");
+        stream.println(String.format("Name: %s", user.getName()));
+        stream.println(String.format("Email: %s", user.getEmail()));
+        stream.println(String.format("Phone: %s", user.getPhoneNumber()));
+        stream.println(String.format("UserId: %s", user.getUserId()));
+    }
+
     public void successfulCheckoutMessageBook() {
         stream.println("Thank you! Enjoy the book");
     }
@@ -125,5 +134,6 @@ public class InputOutput {
     public void logoutMessage() {
         stream.println("Successfully logged out!");
     }
+
 
 }

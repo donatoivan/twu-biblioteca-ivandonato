@@ -27,7 +27,7 @@ public class InputOutputTest {
         movies.add(new Movie("Jumanji", "1995", "Joe Johnston", "8"));
         movies.add(new Movie("Mortal Kombat", "1999", "Paul Anderson", "Unrated"));
 
-        user = new User("123-4567", "password");
+        user = new User("222-2222", "password","Harry Styles", "one@direction.com", "0404111222");
 
         mockOutput = new ByteArrayOutputStream();
 
@@ -65,7 +65,7 @@ public class InputOutputTest {
 
         assertEquals("[Menu Options] (Please type a number)\n[0] Quit Application\n[1] List of books\n[2] Checkout " +
                         "book\n[3] Return book\n[4] List of movies\n[5] Checkout movie\n[6] Logout\n[7] View My " +
-                        "Books\n",
+                        "Books\n[8] View My Details\n",
                 mockOutput.toString());
     }
 
@@ -130,6 +130,17 @@ public class InputOutputTest {
         inputOutput.viewUserBooks(user);
 
         assertEquals("My Books:\nHamlet | William Shakespeare | 1603\nRomeo & Juliet | William Shakespeare | 1597\n",
+                mockOutput.toString());
+    }
+
+    @Test
+    public void viewUserDetails() {
+        ByteArrayInputStream mockInput = new ByteArrayInputStream("".getBytes());
+        InputOutput inputOutput = new InputOutput(new PrintStream(mockOutput), new Scanner(mockInput));
+
+        inputOutput.viewUserDetails(user);
+
+        assertEquals("My Details:\nName: Harry Styles\nEmail: one@direction.com\nPhone: 0404111222\nUserId: 222-2222\n",
                 mockOutput.toString());
     }
 }
