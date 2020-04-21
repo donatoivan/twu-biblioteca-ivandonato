@@ -2,22 +2,22 @@ package com.biblioteca.ivandonato;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Scanner;
 
 public class InputOutput {
     PrintStream stream;
-    private Iterator<String> in;
+    Scanner scanner;
 
-    public InputOutput(PrintStream stream, Iterator<String> in) {
+    public InputOutput(PrintStream stream, Scanner scanner) {
         this.stream = stream;
-        this.in = in;
+        this.scanner = scanner;
     }
 
     public void welcomeMessage() {
         stream.print("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n\n");
     }
 
-    public void displayMenu() {
+    public void displayMenuLoggedIn() {
         stream.println("[Menu Options] (Please type a number)");
         stream.println("[0] Quit Application");
         stream.println("[1] List of books");
@@ -25,13 +25,24 @@ public class InputOutput {
         stream.println("[3] Return book");
         stream.println("[4] List of movies");
         stream.println("[5] Checkout movie");
+        stream.println("[6] Logout");
+        stream.println("[7] View My Books");
+        stream.println("[8] View My Details");
+    }
+
+    public void displayMenuLoggedOut() {
+        stream.println("[Menu Options] (Please type a number)");
+        stream.println("[0] Quit Application");
+        stream.println("[1] List of books");
+        stream.println("[2] List of movies");
+        stream.println("[3] Login");
     }
 
     public String getInputFromUser() {
-        return in.next();
+        return scanner.nextLine();
     }
 
-    public void askForCheckoutTitle() {
+    public void askForCheckoutTitleBook() {
         stream.println("Please type the title of the book you wish to checkout: ");
     }
 
@@ -40,7 +51,7 @@ public class InputOutput {
     }
 
     public void askForReturnTitle() {
-        stream.println("Please type the title of the book you wish to checkout: ");
+        stream.println("Please type the title of the book you wish to return: ");
     }
 
     public void inValidOption() {
@@ -66,7 +77,21 @@ public class InputOutput {
         }
     }
 
-    public void successfulCheckoutMessage() {
+    public void viewUserBooks(User user) {
+        ArrayList<Book> books = user.getMyBooks();
+        stream.println("My Books:");
+        books.stream().forEach(book -> stream.println(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear())));
+    }
+
+    public void viewUserDetails(User user) {
+        stream.println("My Details:");
+        stream.println(String.format("Name: %s", user.getName()));
+        stream.println(String.format("Email: %s", user.getEmail()));
+        stream.println(String.format("Phone: %s", user.getPhoneNumber()));
+        stream.println(String.format("UserId: %s", user.getUserId()));
+    }
+
+    public void successfulCheckoutMessageBook() {
         stream.println("Thank you! Enjoy the book");
     }
 
@@ -74,7 +99,7 @@ public class InputOutput {
         stream.println("Thank you! Enjoy the movie");
     }
 
-    public void unsuccessfulCheckoutMessage() {
+    public void unsuccessfulCheckoutMessageBook() {
         stream.println("Sorry, that book is not available");
     }
 
@@ -90,7 +115,25 @@ public class InputOutput {
         stream.println("That is not a valid book to return.");
     }
 
-    void setIn(Iterator<String> in) {
-        this.in = in;
+    public void loginMessage() {
+        stream.println("Please enter your user login:");
     }
+
+    public void passwordMessage() {
+        stream.println("Please enter your password:");
+    }
+
+    public void successfulLoginMessage() {
+        stream.println("Login successful!");
+    }
+
+    public void unsuccessfulLoginMessage() {
+        stream.println("Incorrect user id or password!");
+    }
+
+    public void logoutMessage() {
+        stream.println("Successfully logged out!");
+    }
+
+
 }

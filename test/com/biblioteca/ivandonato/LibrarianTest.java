@@ -10,11 +10,15 @@ import static org.junit.Assert.assertTrue;
 
 public class LibrarianTest {
     public ArrayList<Book> books;
+    public ArrayList<Movie> movies;
     private Librarian librarian;
+    private User user;
+
 
     @Before
     public void initialiseBooklist() {
         librarian = new Librarian();
+        user = new User("123-4567", "password", "a", "b", "c");
 
         books = new ArrayList<>();
         books.add(new Book("Hamlet", "William Shakespeare", "1603"));
@@ -28,46 +32,42 @@ public class LibrarianTest {
     }
 
     @Test
-    public void checkSuccessfulCheckoutMessage() {
+    public void checkSuccessfulCheckoutBook() {
 
-        boolean result = librarian.findCheckoutBook("Hamlet", books);
+        boolean result = librarian.findCheckoutBook("Hamlet", books, user);
 
         assertTrue(result);
     }
 
     @Test
-    public void checkSuccessfulCheckoutMessageMovie() {
-        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
+    public void checkUnsuccessfulCheckoutBook() {
 
-        librarian.findCheckoutMovie("Mad Max", movies);
-
-        assertEquals("Thank you! Enjoy the movie\n", mockOutput.toString());
-    }
-
-    @Test
-    public void checkUnsuccessfulCheckoutMessage() {
-
-        boolean result = librarian.findCheckoutBook("Haomlet", books);
+        boolean result = librarian.findCheckoutBook("Haomlet", books, user);
 
         assertFalse(result);
     }
 
     @Test
-    public void checkUnsuccessfulCheckoutMessageMovie() {
-        ByteArrayOutputStream mockOutput = new ByteArrayOutputStream();
-        Librarian librarian = new Librarian(new InputOutput(new PrintStream(mockOutput)));
+    public void checkSuccessfulCheckoutMovie() {
 
-        librarian.findCheckoutMovie("Mad Martin", movies);
+        boolean result = librarian.findCheckoutMovie("Mad Max", movies);
 
-        assertEquals("Sorry, that movie is not available\n", mockOutput.toString());
+        assertTrue(result);
+    }
+
+    @Test
+    public void checkUnsuccessfulCheckoutMovie() {
+
+        boolean result = librarian.findCheckoutMovie("Mad Martin", movies);
+
+        assertFalse(result);
     }
 
     @Test
     public void checkThatACheckedOutBookCannotBeCheckedOutAgain() {
         checkout(books, "Hamlet");
 
-        boolean result = librarian.findCheckoutBook("Hamlet", books);
+        boolean result = librarian.findCheckoutBook("Hamlet", books, user);
 
         assertFalse(result);
     }
