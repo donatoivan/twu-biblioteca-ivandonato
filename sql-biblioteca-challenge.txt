@@ -1,0 +1,72 @@
+Answer:
+Anand Beck
+
+SELECT
+	member.name
+FROM
+	member,
+	checkout_item,
+	book
+WHERE
+	book.id= checkout_item.book_id AND
+	member.id = checkout_item.member_id AND
+	book.title = "The Hobbit"
+
+----------------------------
+
+Answer:
+37
+
+SELECT count(*)
+FROM   member
+WHERE  NOT EXISTS (SELECT 1
+                   FROM   checkout_item
+                   WHERE  checkout_item.member_id = member.id)
+
+
+----------------------------
+
+Answer:
+Fellowship of the Ring
+1984
+Thin Red Line
+Crouching Tiger, Hidden Dragon
+Tom Sawyer
+Catcher in the Rye
+Lawrence of Arabia
+Office Space
+To Kill a Mockingbird
+Domain Driven Design
+
+SELECT *
+FROM   book
+WHERE  NOT EXISTS (SELECT 1
+                   FROM   checkout_item
+                   WHERE  checkout_item.book_id = book.id)
+                   UNION
+SELECT *
+FROM   movie
+WHERE  NOT EXISTS (SELECT 1
+                   FROM   checkout_item
+                   WHERE  checkout_item.movie_id = movie.id)
+
+-------------------------------
+
+Add and checkout Pragmatic Programmer
+
+INSERT INTO member (id, name) VALUES (43, "Ivan Donato");
+INSERT INTO book (id, title) VALUES (11, "The Pragmatic Programmer");
+INSERT INTO checkout_item (member_id, book_id, movie_id) VALUES (43, 11, null);
+
+----------------------------
+
+Answer:
+Anand Beck
+Frank Smith
+
+
+SELECT member.name
+FROM checkout_item, member
+WHERE member.id = checkout_item.member_id
+GROUP BY member.name
+HAVING COUNT(member.name) > 1
